@@ -7,8 +7,28 @@ public class Oblig1 {
         private Oblig1() {}
 
         ///// Oppgave 1 //////////////////////////////////////
+        public static int maksimum (int [] a, int venstre, int høyre){
+            if (venstre < 0 || høyre > a.length || venstre >= høyre) {
+                throw new UnsupportedOperationException("En av disse er nå feil");
+            }
+
+            int index = venstre;
+            int maksverdi = a[index];
+
+
+
+            for (int i = venstre; i <høyre; ++i) {
+                if (a[i] > maksverdi) {
+                    maksverdi = a[i];
+                    index = i;
+                }
+                //System.out.print("\nStørste tallet er: " + maksverdi + " på index: " + index);
+            }
+            return index;
+
+        }
         public static int maks(int[] a) {
-            throw new UnsupportedOperationException();
+            return maksimum(a, 0, a.length);
 
         }
 
