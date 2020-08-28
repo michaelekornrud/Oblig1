@@ -1,5 +1,7 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
+import java.util.ArrayList;
+
 public class Oblig1 {
 
 ////// Løsningsforslag Oblig 1 ////////////////////////
@@ -43,7 +45,23 @@ public class Oblig1 {
 
         ///// Oppgave 3 //////////////////////////////////////
         public static int antallUlikeUsortert(int[] a) {
-            throw new UnsupportedOperationException();
+            int count = 0;
+
+            ArrayList<Integer> diffNum = new ArrayList<>();
+
+            for(int i = 0; i < a.length; i++) {
+                if(!diffNum.contains(a[i])) {
+                    diffNum.add(a[i]);
+                }
+            }
+            if(diffNum.size() == 1) {
+                count = 0;
+            }
+            else {
+                count = diffNum.size();
+            }
+            return count;
+
         }
 
         ///// Oppgave 4 //////////////////////////////////////
