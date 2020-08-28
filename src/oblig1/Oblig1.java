@@ -97,7 +97,24 @@ public class Oblig1 {
 
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
-            throw new UnsupportedOperationException();
+            if (a.length <0){
+                throw new UnsupportedOperationException();
+            }
+            int index = a.length;
+            int min = 0;
+            int secondSmallest = 0;
+            int thirdSmallest = 0;
+            for(int i=1;i<index;i++){
+                if(a[i] < a[min]){
+                    min = i;
+                }else if(a[i] < a[secondSmallest]){
+                    secondSmallest = i;
+                }else if(a[i]< a[thirdSmallest]){
+                    thirdSmallest = i;
+                }
+            }
+
+            return new int[]{a[thirdSmallest]};
         }
 
         ///// Oppgave 10 //////////////////////////////////////
