@@ -9,7 +9,7 @@ public class Oblig1 {
 
         private Oblig1() {}
 
-        ///// Oppgave 1 //////////////////////////////////////
+
 
      //metode for å forenkle byttene
         public static void bytt(int[] a, int i, int j) {
@@ -63,7 +63,7 @@ public class Oblig1 {
     public static void kvikkSortering(int [] a){ //Sorterer hele tabellen
             kvikkSortering0(a, 0, a.length-1);
     }
-
+    ///// Oppgave 1 //////////////////////////////////////
         public static int maks(int[] a) {
             if (a == null || a.length == 0 ) {
                 throw new NoSuchElementException();
@@ -189,6 +189,9 @@ return count;  //returnerer antall ulike
                     left++;
                 }
             }
+
+            kvikkSortering(a, 0, left);
+            kvikkSortering(a, left, array_length);
 
 
         }
