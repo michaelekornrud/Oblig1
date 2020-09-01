@@ -275,12 +275,36 @@ return count;  //returnerer antall ulike
         ///// Oppgave 7 //////////////////////////////////////
         /// 7a)
         public static String flett(String s, String t) {
-            throw new UnsupportedOperationException();
+
+            // For å lage den "nye" stringen
+            StringBuilder flettet = new StringBuilder();
+
+            // Går gjennom alle indeksene i stringene
+            for (int i = 0; i < s.length() || i < t.length(); i++) {
+
+                // Finner elementet for hver indeks hvis det eksisterer
+                if(i < s.length())
+                    flettet.append(s.charAt(i));
+
+                // Gjør det samme for den andre stringen
+                if(i < t.length())
+                    flettet.append(t.charAt(i));
+            }
+            return flettet.toString();
+
+
         }
 
         /// 7b)
         public static String flett(String... s) {
-            throw new UnsupportedOperationException();
+            StringBuilder fletter = new StringBuilder();
+
+            for (int i = 0; i < fletter.length(); i++){
+                for (int j = 1; j < fletter.length(); j++) {
+
+                }
+            }
+            return fletter.toString();
         }
 
         ///// Oppgave 8 //////////////////////////////////////
