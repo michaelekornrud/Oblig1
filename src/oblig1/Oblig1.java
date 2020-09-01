@@ -1,6 +1,7 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 public class Oblig1 {
@@ -292,7 +293,7 @@ return count;  //returnerer antall ulike
             if (a.length <0){
                 throw new UnsupportedOperationException();
             }
-            int index = a.length;
+            int index = a.length - 1;
             int min = 0;
             int secondSmallest = 0;
             int thirdSmallest = 0;
@@ -311,7 +312,24 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            throw new UnsupportedOperationException();
+            if (!Character.isAlphabetic(bokstav)){
+                throw new UnsupportedOperationException();
+            }
+            char a = bokstav;
+            char [] c = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
+            char [] d = "abcdefghijklmnopqrstuvwxyzæøå".toCharArray();
+            int maxindex = c.length;
+            int index = 0;
+
+            for(int i = 0; i < maxindex; ++i){
+
+                if( c[index] == a  || d[index] == a){
+                    index = c[i];
+                }
+
+            }
+            return index;
+
         }
 
         public static boolean inneholdt(String a, String b) {
