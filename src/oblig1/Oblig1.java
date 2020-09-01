@@ -11,12 +11,57 @@ public class Oblig1 {
 
         ///// Oppgave 1 //////////////////////////////////////
 
-    public static class Bytt {  //Klasse for å forenkle byttene
-        public void bytt(int[] a, int i, int j) {
+     //metode for å forenkle byttene
+        public static void bytt(int[] a, int i, int j) {
             int temp = a[i];
             a[i] = a[j];
             a[j] = temp;
         }
+
+        public static void fraTilKontroll(int tablengde, int fra, int til){
+            if (fra < 0){
+                throw new ArrayIndexOutOfBoundsException("fra("+fra+") er negativ");
+            }
+            if (til > tablengde){
+                throw new ArrayIndexOutOfBoundsException( "til("+til+")tablengde "+ tablengde+")");
+            }
+            if (fra > til){
+                throw new IllegalArgumentException("fra("+fra+")>til "+ til+") -illegalt intervall ");
+            }
+        }
+
+        private static int parter0(int []a, int v, int h, int skilleverdi){
+            while (true){ //Stopper når v > h
+                while (v <= h && a[v] < skilleverdi) v++; //h er stoppverdi for v
+                while (v<=h && a[h] >=skilleverdi)h--; //v er stoppverdi for h
+
+                if (v < h) bytt(a, v++, h--);  //bytter om a[v] og a[h]
+                else return v; //a[v] er nåden første som ikke er mindre enn skilleverdi
+            }
+        }
+
+        public static int sParter0(int [] a, int v, int h, int index){
+            bytt(a, index, h);  //Skilleverdi a[index] flyttes bakerst
+            int pos = parter0(a, v, h-1, a[h]); //partisjonerer a[a:h-1]
+            bytt(a, pos, h); //Bytter for å få skilleverdien på rett plass
+            return pos; //returnerer posisjonen til skilleverdien
+        }
+
+
+   private static void kvikkSortering0(int [] a, int v, int h){
+            if ( v>= h) return; //a[v:h] er tomt eller har max ett element
+            int k = sParter0(a, v, h,(v+h)/2); //bruker midtverdien
+            kvikkSortering0(a, v, k-1); //sorterer intervallet a[v:k-1]
+            kvikkSortering0(a, k+1, h);//sorterer intervallet a[h:k+1]
+    }
+
+    public static void kvikkSortering(int[]a, int fra, int til){  //a[frta:til]>
+            fraTilKontroll(a.length, fra, til);  //Sjekker når metoden er offentlig
+            kvikkSortering0(a, fra, til-1); //v = fra, h = til.1
+    }
+
+    public static void kvikkSortering(int [] a){ //Sorterer hele tabellen
+            kvikkSortering0(a, 0, a.length-1);
     }
 
         public static int maks(int[] a) {
@@ -66,7 +111,7 @@ public class Oblig1 {
 
             for (int i = 0; i < a.length - 1; i++) {
                 if (a[i] > a[i+1]) { //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
-                    throw new IllegalStateException("Feil rekkefølge i array");
+                    throw new IllegalStateException("Feil rekkefølge i array");  //kaster avvik
                 }
                 else if (a[i+1] != a[i]){  //Sjekker om tallet til høre ikke er ulik tallet til venstre
                     antallUlike++;
@@ -97,6 +142,9 @@ public class Oblig1 {
             }
             return count;*/
 
+
+            //Må kaste et avvik
+
             int count = 0; //initialiserer en hjelpevariabel som skal telle antall ulike tall i array
 
             for (int i = 0; i < a.length; i++){  //Looper gjennom arrayet
@@ -119,16 +167,26 @@ return count;  //returnerer antall ulike
         ///// Oppgave 4 //////////////////////////////////////
         public static void delsortering(int[] a) {
             //throw new UnsupportedOperationException();
-            int n = a.length;
+            int array_length = a.length;
             int left = 0;
-            int right = n-1;
+            int right = array_length-1;
 
-            if (n == 0){ return;}
+
+            if (array_length == 0){ return;}
 
             while (left <= right){
                 if (((a[left] % 2) == 0) && !(((a[right] %2)==0))){
-                   // bytt(a, left++, right--); //lage en metode bytt
-
+                   bytt(a, left++, right--); //Bruker metoden bytt for å sortere verdiene i arrayet
+                }
+                else if ((a[left] %2 )==0){
+                    right--;
+                }
+                else if (!((a[right] %2) ==2)){
+                    left++;
+                }
+                else if (!((a[left] %2 )==0)&&((a[right]%2)==0)){
+                    right++;
+                    left++;
                 }
             }
 
