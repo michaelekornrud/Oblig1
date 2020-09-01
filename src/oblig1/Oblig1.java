@@ -11,13 +11,15 @@ public class Oblig1 {
 
 
 
-     //metode for å forenkle byttene
+     //metode for å forenkle byttene, hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
         public static void bytt(int[] a, int i, int j) {
             int temp = a[i];
             a[i] = a[j];
             a[j] = temp;
         }
 
+
+        //hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
         public static void fraTilKontroll(int tablengde, int fra, int til){
             if (fra < 0){
                 throw new ArrayIndexOutOfBoundsException("fra("+fra+") er negativ");
@@ -30,6 +32,7 @@ public class Oblig1 {
             }
         }
 
+        //hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
         private static int parter0(int []a, int v, int h, int skilleverdi){
             while (true){ //Stopper når v > h
                 while (v <= h && a[v] < skilleverdi) v++; //h er stoppverdi for v
@@ -40,6 +43,7 @@ public class Oblig1 {
             }
         }
 
+        //hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
         public static int sParter0(int [] a, int v, int h, int index){
             bytt(a, index, h);  //Skilleverdi a[index] flyttes bakerst
             int pos = parter0(a, v, h-1, a[h]); //partisjonerer a[a:h-1]
@@ -48,6 +52,7 @@ public class Oblig1 {
         }
 
 
+        //hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
    private static void kvikkSortering0(int [] a, int v, int h){
             if ( v>= h) return; //a[v:h] er tomt eller har max ett element
             int k = sParter0(a, v, h,(v+h)/2); //bruker midtverdien
@@ -55,6 +60,7 @@ public class Oblig1 {
             kvikkSortering0(a, k+1, h);//sorterer intervallet a[h:k+1]
     }
 
+    //Hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
     public static void kvikkSortering(int[]a, int fra, int til){  //a[frta:til]>
             fraTilKontroll(a.length, fra, til);  //Sjekker når metoden er offentlig
             kvikkSortering0(a, fra, til-1); //v = fra, h = til.1
@@ -63,6 +69,22 @@ public class Oblig1 {
     public static void kvikkSortering(int [] a){ //Sorterer hele tabellen
             kvikkSortering0(a, 0, a.length-1);
     }
+
+    /*public static void rotasjonAvEn(int [] a){
+            int last = a[a.length-1];
+            for (int i = a.length-2; i>=0; i--){
+                a[i+1] = a[i];
+            }
+            a[0] = last;
+    }*/
+
+
+    //Hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
+    public static int gcd(int a, int b){ //Euklids algoritme
+        return b ==0?a:gcd(b, a%b);
+    }
+
+
     ///// Oppgave 1 //////////////////////////////////////
         public static int maks(int[] a) {
             if (a == null || a.length == 0 ) {
@@ -201,6 +223,7 @@ return count;  //returnerer antall ulike
             if (a ==null) {
                 throw new UnsupportedOperationException("Det er ingen verdier i arrayet");
             }
+
             int index = 0; //initialiserer indeksen
             int n = a.length-1;
 
@@ -214,7 +237,38 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 6 //////////////////////////////////////
         public static void rotasjon(char[] a, int k) {
-            throw new UnsupportedOperationException();
+         /*for (int i = 0; i < k; i++){
+             rotasjon(a);
+         }*/
+          /* int n = a.length;
+
+           char [] b = new char[k];
+           for (int i = 0; i < k; i++){
+               b[i] = a[n - k + i];
+           }
+
+           for (int i = n-k-1; i >= 0; i--){
+               a[i + k] = a[i];
+           }
+
+           for (int i = 0; i< k; i++){
+               a[i] = (char) b[i];
+           }*/
+          int n = a.length; if (n <2) return;
+          if ((k%=n)<0)k+=n;
+
+          int s = gcd(n, k);  //Største felles divisor
+
+            for (int d = 0; d < s; d++) { //Antall loops
+                char verdi = a[d]; //Hjelpevariabel
+
+                for (int i = d-k, j = d; i!=d; i -=k){
+                    if (i < 0) i+=n;
+                    a[j] = a[i]; //Sjekker fortegnert til i
+                    j=i; //oppdaterter j
+                }
+                a[d+k] = verdi;  //legger tilbake verdiene
+            }
         }
 
         ///// Oppgave 7 //////////////////////////////////////
