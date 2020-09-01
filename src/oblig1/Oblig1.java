@@ -168,8 +168,8 @@ return count;  //returnerer antall ulike
         public static void delsortering(int[] a) {
             //throw new UnsupportedOperationException();
             int array_length = a.length;
-            int left = 0;
-            int right = array_length-1;
+            int left = 0;  //Starter på venstre side med verdu 0
+            int right = array_length-1;  //Starter på høyre side med verdi (array sin lenge -1)
 
 
             if (array_length == 0){ return;}
@@ -178,10 +178,10 @@ return count;  //returnerer antall ulike
                 if (((a[left] % 2) == 0) && !(((a[right] %2)==0))){
                    bytt(a, left++, right--); //Bruker metoden bytt for å sortere verdiene i arrayet
                 }
-                else if ((a[left] %2 )==0){
+                else if ((a[left] %2 )==0){ //Sjekker om tallene på venstre er partall/oddetall
                     right--;
                 }
-                else if (!((a[right] %2) ==2)){
+                else if (!((a[right] %2) ==2)){  //Sjekker om tallene på høyre er partall/oddetall
                     left++;
                 }
                 else if (!((a[left] %2 )==0)&&((a[right]%2)==0)){
@@ -198,7 +198,18 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 5 //////////////////////////////////////
         public static void rotasjon(char[] a) {
-            throw new UnsupportedOperationException();
+            if (a ==null) {
+                throw new UnsupportedOperationException("Det er ingen verdier i arrayet");
+            }
+            int index = 0; //initialiserer indeksen
+            int n = a.length-1;
+
+            for (int i = 0; i < n; i++){ //Looper igjennom arrayet og endrer på posisjonen til siste verdi
+                char c = a[n];
+                a[n] = a[index];
+                a[index] = c;
+                index++;
+            }
         }
 
         ///// Oppgave 6 //////////////////////////////////////
