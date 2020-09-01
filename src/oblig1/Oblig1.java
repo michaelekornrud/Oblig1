@@ -40,11 +40,13 @@ public class Oblig1 {
                 throw new NoSuchElementException();
             }
 
-            int antallOmbyttinger = 0;
+            int antallOmbyttinger = 0;  //initialiserer antallOmbytter som skal telles opp
 
 
-            for (int i = 1; i < a.length; i++) {
-                if (a[i - 1] > a[i]) {
+            for (int i = 1; i < a.length; i++) { //looper gjennom arrayet
+                if (a[i - 1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
+
+                    //stokker om tallene, Kan også bruke bytt-metoden som er laget lengre opp i filen. Endre på dette senere
                     int temp = a[i - 1];
                     a[i - 1] = a[i];
                     a[i] = temp;
@@ -63,10 +65,10 @@ public class Oblig1 {
             }
 
             for (int i = 0; i < a.length - 1; i++) {
-                if (a[i] > a[i+1]) {
+                if (a[i] > a[i+1]) { //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
                     throw new IllegalStateException("Feil rekkefølge i array");
                 }
-                else if (a[i+1] != a[i]){
+                else if (a[i+1] != a[i]){  //Sjekker om tallet til høre ikke er ulik tallet til venstre
                     antallUlike++;
                 }
             }
@@ -78,7 +80,7 @@ public class Oblig1 {
 
         ///// Oppgave 3 //////////////////////////////////////
         public static int antallUlikeUsortert(int[] a) {
-            int count = 0;
+            /*int count = 0;
 
             ArrayList<Integer> diffNum = new ArrayList<>();
 
@@ -93,7 +95,24 @@ public class Oblig1 {
             else {
                 count = diffNum.size();
             }
-            return count;
+            return count;*/
+
+            int count = 0; //initialiserer en hjelpevariabel som skal telle antall ulike tall i array
+
+            for (int i = 0; i < a.length; i++){  //Looper gjennom arrayet
+                boolean uLik = false;
+                for (int j = 0; j < i; j++){  //Looper gjennom a[i] og a[j]
+                    if (a [i] == a[j]){   //Sjekker om tallene er like
+                        uLik = true;
+                        break; //Hopper ut av interasjon og tester videre om det er flere tall som er like
+                    }
+                }
+                if (!uLik){  //Test som teller opp hvor mange ulike som er false.
+                    count++; //Teller opp
+                }
+            }
+
+return count;  //returnerer antall ulike
 
         }
 
