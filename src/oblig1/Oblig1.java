@@ -1,6 +1,7 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class Oblig1 {
 
@@ -9,33 +10,47 @@ public class Oblig1 {
         private Oblig1() {}
 
         ///// Oppgave 1 //////////////////////////////////////
-        public static int maksimum (int [] a, int venstre, int høyre){
-            if (venstre < 0 || høyre > a.length || venstre >= høyre) {
-                throw new UnsupportedOperationException("En av disse er nå feil");
-            }
 
-            int index = venstre;
-            int maksverdi = a[index];
-
-
-
-            for (int i = venstre; i <høyre; ++i) {
-                if (a[i] > maksverdi) {
-                    maksverdi = a[i];
-                    index = i;
-                }
-                //System.out.print("\nStørste tallet er: " + maksverdi + " på index: " + index);
-            }
-            return index;
-
+    public static class Bytt {
+        public void bytt(int[] a, int i, int j) {
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
         }
-        public static int maks(int[] a) {
-            return maksimum(a, 0, a.length);
+    }
 
+        public static int maks(int[] a) {
+            if (a == null || a.length == 0 ) {
+                throw new NoSuchElementException();
+            }
+
+            for (int i = 1; i < a.length; i++) {
+
+                    if (a[i-1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre
+                        int temp = a[i - 1];  //bytter plass på verdiene
+                        a[i - 1] = a[i];
+                        a[i] = temp; //oppdaterer tallet
+                    }
+                }
+            return a[a.length - 1]; //Returnerer størtste tall/tall som er helt til høyre i arrayet
         }
 
         public static int ombyttinger(int[] a) {
-            throw new UnsupportedOperationException();
+           // throw new UnsupportedOperationException();
+            int antallOmbyttinger = 0;
+
+
+            for (int i = 0; i < a.length; i++) {
+                if (a[i - 1] > a[i]) {
+                    int temp = a[i - 1];
+                    a[i - 1] = a[i];
+                    a[i] = temp;
+                    antallOmbyttinger++;
+                }
+
+
+            }
+            return antallOmbyttinger;
         }
 
         ///// Oppgave 2 //////////////////////////////////////
@@ -66,7 +81,21 @@ public class Oblig1 {
 
         ///// Oppgave 4 //////////////////////////////////////
         public static void delsortering(int[] a) {
-            throw new UnsupportedOperationException();
+            //throw new UnsupportedOperationException();
+            int n = a.length;
+            int left = 0;
+            int right = n-1;
+
+            if (n == 0){ return;}
+
+            while (left <= right){
+                if (((a[left] % 2) == 0) && !(((a[right] %2)==0))){
+                   // bytt(a, left++, right--); //lage en metode bytt
+
+                }
+            }
+
+
         }
 
         ///// Oppgave 5 //////////////////////////////////////
