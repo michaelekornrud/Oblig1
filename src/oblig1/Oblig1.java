@@ -36,11 +36,14 @@ public class Oblig1 {
         }
 
         public static int ombyttinger(int[] a) {
-           // throw new UnsupportedOperationException();
+            if (a == null) {
+                throw new NoSuchElementException();
+            }
+
             int antallOmbyttinger = 0;
 
 
-            for (int i = 0; i < a.length; i++) {
+            for (int i = 1; i < a.length; i++) {
                 if (a[i - 1] > a[i]) {
                     int temp = a[i - 1];
                     a[i - 1] = a[i];
