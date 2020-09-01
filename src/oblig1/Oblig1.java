@@ -11,7 +11,7 @@ public class Oblig1 {
 
         ///// Oppgave 1 //////////////////////////////////////
 
-    public static class Bytt {
+    public static class Bytt {  //Klasse for å forenkle byttene
         public void bytt(int[] a, int i, int j) {
             int temp = a[i];
             a[i] = a[j];
@@ -50,16 +50,31 @@ public class Oblig1 {
                     a[i] = temp;
                     antallOmbyttinger++;
                 }
-
-
             }
             return antallOmbyttinger;
         }
 
         ///// Oppgave 2 //////////////////////////////////////
         public static int antallUlikeSortert(int[] a) {
-            throw new UnsupportedOperationException();
+            int antallUlike = 1;
+
+            if (a.length == 0) {
+                return 0;
+            }
+
+            for (int i = 0; i < a.length - 1; i++) {
+                if (a[i] > a[i+1]) {
+                    throw new IllegalStateException("Feil rekkefølge i array");
+                }
+                else if (a[i+1] != a[i]){
+                    antallUlike++;
+                }
+            }
+
+            return antallUlike;
         }
+
+
 
         ///// Oppgave 3 //////////////////////////////////////
         public static int antallUlikeUsortert(int[] a) {
