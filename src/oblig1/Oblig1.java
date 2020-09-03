@@ -352,12 +352,26 @@ return count;  //returnerer antall ulike
                 }
 
             }
-            return index;
+            return c[index];
 
         }
 
         public static boolean inneholdt(String a, String b) {
+        if(!a.contains(b) || a != "" || b != "") {
             throw new UnsupportedOperationException();
+        }
+
+            int counter = 0;
+
+            for (int i = 0; i < 100; ++i) {
+
+                    if (a.contains(b) || a == "" || b == "") {
+                        counter = i;
+                        System.out.println("Counter : " + counter);
+                        return true;
+                    }
+                }
+            return false;
         }
 
 }  // Oblig1
