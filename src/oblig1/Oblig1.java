@@ -1,5 +1,7 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.NoSuchElementException;
 
 public class Oblig1 {
@@ -86,7 +88,7 @@ public class Oblig1 {
 
     ///// Oppgave 1 //////////////////////////////////////
         public static int maks(int[] a) {
-            if (a == null || a.length < 1 ) {
+            if (a == null || a.length == 0 ) {
                 throw new NoSuchElementException();
             }
 
@@ -102,7 +104,7 @@ public class Oblig1 {
         }
 
         public static int ombyttinger(int[] a) {
-            if (a == null || a.length < 1) {
+            if (a == null) {
                 throw new NoSuchElementException();
             }
 
@@ -112,11 +114,11 @@ public class Oblig1 {
             for (int i = 1; i < a.length; i++) { //looper gjennom arrayet
                 if (a[i - 1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
 
-
-                    int temp = a[i - 1]; //Gjør som i maksmetoden, stokker om
+                    //stokker om tallene, Kan også bruke bytt-metoden som er laget lengre opp i filen. Endre på dette senere
+                    int temp = a[i - 1];
                     a[i - 1] = a[i];
                     a[i] = temp;
-                    antallOmbyttinger++; //Oppdaterer antallOmbyttinger for hver gang et tall endrer plass
+                    antallOmbyttinger++;
                 }
             }
             return antallOmbyttinger;
@@ -124,14 +126,14 @@ public class Oblig1 {
 
         ///// Oppgave 2 //////////////////////////////////////
         public static int antallUlikeSortert(int[] a) {
-            if (a.length == 0) {
-                return 0;  //Returnerer 0 hvis tabellen er tom
-            }
-
             int antallUlike = 1;
 
-            for (int i = 0; i < a.length-1; i++) {
-                if (a[i+1] < a[i]) { //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
+            if (a.length == 0) {
+                return 0;
+            }
+
+            for (int i = 0; i < a.length - 1; i++) {
+                if (a[i] > a[i+1]) { //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
                     throw new IllegalStateException("Feil rekkefølge i array");  //kaster avvik
                 }
                 else if (a[i+1] != a[i]){  //Sjekker om tallet til høre ikke er ulik tallet til venstre
@@ -163,22 +165,21 @@ public class Oblig1 {
             }
             return count;*/
 
-            if (a.length == 0){
-                return 0; //Hvis tabellen er tom, har de 0 ulike
-            }
+
+            //Må kaste et avvik
 
             int count = 0; //initialiserer en hjelpevariabel som skal telle antall ulike tall i array
 
             for (int i = 0; i < a.length; i++){  //Looper gjennom arrayet
-                boolean verdiErUlik = false;
+                boolean uLik = false;
                 for (int j = 0; j < i; j++){  //Looper gjennom a[i] og a[j]
                     if (a [i] == a[j]){   //Sjekker om tallene er like
-                        verdiErUlik = true;
+                        uLik = true;
                         break; //Hopper ut av interasjon og tester videre om det er flere tall som er like
                     }
                 }
-                if (!verdiErUlik){
-                    count++;
+                if (!uLik){  //Test som teller opp hvor mange ulike som er false.
+                    count++; //Teller opp
                 }
             }
 
@@ -200,7 +201,7 @@ return count;  //returnerer antall ulike
                 if (((a[left] % 2) == 0) && !(((a[right] %2)==0))){
                    bytt(a, left++, right--); //Bruker metoden bytt for å sortere verdiene i arrayet
                 }
-                else if ((a[left] %2 )==0){ //Sjekker om tallene på venstre er partall
+                else if ((a[left] %2 )==0){ //Sjekker om tallene på venstre er partall/oddetall
                     right--;
                 }
                 else if (!((a[right] %2) ==2)){  //Sjekker om tallene på høyre er partall/oddetall
@@ -214,14 +215,14 @@ return count;  //returnerer antall ulike
 
             kvikkSortering(a, 0, left);
             kvikkSortering(a, left, array_length);
+
+
         }
 
         ///// Oppgave 5 //////////////////////////////////////
-
-    //Bruker liknende metoder som i https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html
         public static void rotasjon(char[] a) {
-            if (a ==null || a.length < 1) {
-                return; //En tom tabell er ingen feilsituasjon. Men rotasjonen vil da ikke endre noe
+            if (a ==null) {
+                throw new UnsupportedOperationException("Det er ingen verdier i arrayet");
             }
 
             int index = 0; //initialiserer indeksen
@@ -273,40 +274,9 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 7 //////////////////////////////////////
         /// 7a)
-        public static String flett(String str1, String str2) {
-            //throw new UnsupportedOperationException();
-            /*tring resultat = "";
-            int index;
-
-            if (s.length() >= t.length()) {
-                index = t.length();
-            } else  {
-                index = s.length();
-            }
-
-            for(int i=0; i<index; i++){
-                resultat += s.substring(i, i+1) + t.substring(i, i+1);
-            }
-
-            if(s.length() < t.length()) resultat += t.substring(s.length());
-            if(s.length() > t.length()) resultat += s.substring(t.length());
-
-            return resultat;*/
-                int maxIndex = Math.max(str1.length(), str2.length());
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < maxIndex; i++){
-                    sb.append(tryGetChar(str1, i));
-                    sb.append(tryGetChar(str2, i));
-                }
-
-                return sb.toString();
-            }
-
-            private static String tryGetChar(String str, int index){
-                return index < str.length() ? String.valueOf(str.charAt(index)) : "";
-            }
-
+        public static String flett(String s, String t) {
+            throw new UnsupportedOperationException();
+        }
 
         /// 7b)
         public static String flett(String... s) {
@@ -320,10 +290,10 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
-            if (a == null){
+            if (a.length <0){
                 throw new UnsupportedOperationException();
             }
-            int index = a.length;
+            int index = a.length - 1;
             int min = 0;
             int secondSmallest = 0;
             int thirdSmallest = 0;
@@ -342,11 +312,42 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            throw new UnsupportedOperationException();
+            if (!Character.isAlphabetic(bokstav)){
+                throw new UnsupportedOperationException();
+            }
+            char a = bokstav;
+            char [] c = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
+            char [] d = "abcdefghijklmnopqrstuvwxyzæøå".toCharArray();
+            int maxindex = c.length;
+            int index = 0;
+
+            for(int i = 0; i < maxindex; ++i){
+
+                if( c[index] == a  || d[index] == a){
+                    index = c[i];
+                }
+
+            }
+            return c[index];
+
         }
 
         public static boolean inneholdt(String a, String b) {
+        if(!a.contains(b) || a != "" || b != "") {
             throw new UnsupportedOperationException();
+        }
+
+            int counter = 0;
+
+            for (int i = 0; i < 100; ++i) {
+
+                    if (a.contains(b) || a == "" || b == "") {
+                        counter = i;
+                        System.out.println("Counter : " + counter);
+                        return true;
+                    }
+                }
+            return false;
         }
 
 }  // Oblig1
