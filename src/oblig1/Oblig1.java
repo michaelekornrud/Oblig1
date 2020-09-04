@@ -81,8 +81,19 @@ public class Oblig1 {
 
 
     //Hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
-    public static int gcd(int a, int b){ //Euklids algoritme
-        return b ==0?a:gcd(b, a%b);
+    public static int gcd(int a, int b){ //Euklids algoritme  //Høyeste felles divisor
+        return b ==0 ? a:gcd(b, a%b);
+    }
+
+    public static void bobleSortering(int [] a){
+
+        for (int n = a.length; n > 1; n--){
+            for (int i = 1; i < n; i++){
+                if (a[i-1] > a[i]){
+                    bytt(a, i-1, i);
+                }
+            }
+        }
     }
 
 
@@ -275,8 +286,31 @@ return count;  //returnerer antall ulike
         ///// Oppgave 7 //////////////////////////////////////
         /// 7a)
         public static String flett(String s, String t) {
-            throw new UnsupportedOperationException();
+
+        if (s == null && t == null){
+            return "";
         }
+
+            String resultat = "";
+            int index;
+
+            if (s.length() <= t.length()) {
+                index = t.length();
+            } else  {
+                index = s.length();
+            }
+
+            for(int i=0; i<index; i++){
+                resultat += s.substring(i, i+1) + t.substring(i, i+1);
+            }
+
+            if(s.length() < t.length()) resultat += t.substring(s.length());
+            if(s.length() > t.length()) resultat += s.substring(t.length());
+
+            return resultat;
+        }
+
+
 
         /// 7b)
         public static String flett(String... s) {
@@ -290,10 +324,11 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
-            if (a.length <0){
+            /*if (a.length <0){
                 throw new UnsupportedOperationException();
-            }
-            int index = a.length - 1;
+            }*/
+
+          /*      int index = a.length - 1;
             int min = 0;
             int secondSmallest = 0;
             int thirdSmallest = 0;
@@ -307,7 +342,108 @@ return count;  //returnerer antall ulike
                 }
             }
 
-            return new int[]{a[thirdSmallest]};
+            return new int[]{a[thirdSmallest]};*/
+          /*  int firt = Integer.MAX_VALUE;
+            int second = Integer.MAX_VALUE;
+            int third = Integer.MAX_VALUE;
+
+            for (int i = 0; i < a.length; i++){
+                int currentNumber = a[i];
+                if (firt > currentNumber){
+                    third = second;
+                    second = firt;
+                    firt = currentNumber;
+                } else if(second > currentNumber){
+                    third = second;
+                    second = currentNumber;
+                } else if (third > currentNumber){
+                    third = currentNumber;
+                }
+            }
+            return new int [] {third};*/
+          /*  int array_length = a.length;
+            int thirdLargestNumber = 0;
+
+            for (int i = 0; i < array_length; i++ ){
+                for (int j = 0; j < array_length; j++) {
+                    for (int k = 0; k < array_length; k++) {
+                        if (a[i] = a[j] || a[j] < a[k]) {
+                            thirdLargestNumber = a[i];
+                            a[i] = a[j];
+                            a[j] = a[k];
+                            a[k] = thirdLargestNumber;
+                        }
+                    }
+                }
+            }
+            return new int[]{a[thirdLargestNumber]};*/
+            int array_length = a.length;
+            if (array_length < 3){
+                throw new NoSuchElementException("Arrayet sin lengde er mindre enn 3! Dette går ikke");
+            }
+
+           if (array_length <= 3){
+               int [] indexToNumber1 = new int[3];
+               int [] temporaryNumber1 = new int[array_length];
+
+               for (int i = 0; i < array_length; i++){
+                   temporaryNumber1[i] = a[i];
+               }
+               bobleSortering(temporaryNumber1);
+
+               for (int i = 0; i < 3; i++){ //i < 3 fordi programmet skal returnere 3 tall
+                   for (int j = 0; j < array_length; j++){
+                       if (temporaryNumber1[i] == a[j]){
+                           indexToNumber1[i] = j;
+                       }
+                   }
+               }
+               return indexToNumber1;
+           }
+
+           else if (array_length > 3 && array_length <=6){
+               int [] indexToNumber2 = new int[6];
+               int [] temporaryNumber2 = new int[6]; //Kan også bruke a.lenght
+
+               for (int i = 0; i < 6; i++){
+                   temporaryNumber2[i] = a[i];
+               }
+
+               bobleSortering(temporaryNumber2); //Indexsortering
+
+               for (int i = 0; i < 6; i++){
+                   for (int j = 0; j < array_length; j++){
+                       if (temporaryNumber2[i] == a[j]){
+                           indexToNumber2[i] = j;
+                       }
+                   }
+               }
+               return indexToNumber2;
+           }
+
+           else {
+               int [] indexToNumber3 = new int[10];
+               int [] temporaryNumber3 = new int[10];
+
+               for (int i = 0; i < 10; i++){
+                   temporaryNumber3[i] = a[i];
+               }
+               bobleSortering(temporaryNumber3);
+
+               for (int i = 0; i < 10; i++){
+                   for (int j = 0; j < array_length; j++){
+                       if (temporaryNumber3[i] == a[j]){
+                           indexToNumber3[i] = j;
+                       }
+                   }
+               }
+               return indexToNumber3;
+           }
+        }
+
+        public static void main(String [] args){
+        int [] a = new int [] {1, 2, 3, 4, 5, 6,7};
+        System.out.println(tredjeMin(a));
         }
 
         ///// Oppgave 10 //////////////////////////////////////
