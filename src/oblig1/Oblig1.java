@@ -95,7 +95,7 @@ public class Oblig1 {
         return b ==0 ? a:gcd(b, a%b);
     }
 
-    public static void bobleSortering(int [] a){
+    public static void bobleSortering(int [] a){  //forelesning
 
         for (int n = a.length; n > 1; n--){
             for (int i = 1; i < n; i++){
@@ -147,13 +147,14 @@ public class Oblig1 {
 
         ///// Oppgave 2 //////////////////////////////////////
         public static int antallUlikeSortert(int[] a) {
-            int antallUlike = 1;
+            int array_length = a.length;
 
-            if (a.length == 0) {
+            if (array_length == 0) {
                 return 0;
             }
+            int antallUlike = 1;
 
-            for (int i = 0; i < a.length - 1; i++) {
+            for (int i = 0; i < array_length- 1; i++) {
                 if (a[i] > a[i+1]) { //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
                     throw new IllegalStateException("Feil rekkefølge i array");  //kaster avvik
                 }
@@ -262,34 +263,34 @@ return count;  //returnerer antall ulike
          /*for (int i = 0; i < k; i++){
              rotasjon(a);
          }*/
-          /* int n = a.length;
+          /* int array_length = a.length;
 
            char [] b = new char[k];
            for (int i = 0; i < k; i++){
-               b[i] = a[n - k + i];
+               b[i] = a[array_length - k + i];
            }
 
-           for (int i = n-k-1; i >= 0; i--){
+           for (int i = array_length-k-1; i >= 0; i--){
                a[i + k] = a[i];
            }
 
            for (int i = 0; i< k; i++){
                a[i] = (char) b[i];
            }*/
-          int n = a.length; if (n <2) return;
-          if ((k%=n)<0)k+=n;
+          int array_length = a.length; if (array_length <2) return;
+          if ((k%=array_length)<0)k+=array_length;
 
-          int s = gcd(n, k);  //Største felles divisor
+          int largest_common_divisor = gcd(array_length, k);  //Største felles divisor
 
-            for (int d = 0; d < s; d++) { //Antall loops
-                char verdi = a[d]; //Hjelpevariabel
+            for (int d = 0; d < largest_common_divisor; d++) { //Antall loops
+                char value = a[d]; //Hjelpevariabel
 
-                for (int i = d-k, j = d; i!=d; i -=k){
-                    if (i < 0) i+=n;
+                for (int i = d-k, j = d; i!=d; i -= k){
+                    if (i < 0) i+=array_length;
                     a[j] = a[i]; //Sjekker fortegnert til i
                     j=i; //oppdaterter j
                 }
-                a[d+k] = verdi;  //legger tilbake verdiene
+                a[d+k] = value;  //legger tilbake verdiene
             }
         }
 
@@ -318,7 +319,7 @@ return count;  //returnerer antall ulike
             if(s.length() > t.length()) resultat += s.substring(t.length());
 
             return resultat;
-        }
+        } //Fungerer ikke
 
 
 
@@ -447,7 +448,7 @@ return count;  //returnerer antall ulike
                    temporaryNumber2[i] = a[i];
                }
 
-               bobleSortering(temporaryNumber2); //Indexsortering
+               bobleSortering(temporaryNumber2); //fra forelesning
 
                for (int i = 0; i < 6; i++){
                    for (int j = 0; j < array_length; j++){
@@ -477,11 +478,6 @@ return count;  //returnerer antall ulike
                }
                return indexToNumber3;
            }
-        }
-
-        public static void main(String [] args){
-        int [] a = new int [] {1, 2, 3, 4, 5, 6,7};
-        System.out.println(tredjeMin(a));
         }
 
         ///// Oppgave 10 //////////////////////////////////////
