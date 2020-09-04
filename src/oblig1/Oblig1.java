@@ -1,6 +1,7 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
@@ -65,6 +66,15 @@ public class Oblig1 {
     public static void kvikkSortering(int[]a, int fra, int til){  //a[frta:til]>
             fraTilKontroll(a.length, fra, til);  //Sjekker når metoden er offentlig
             kvikkSortering0(a, fra, til-1); //v = fra, h = til.1
+    }
+
+    public static int [] bytteHjelp (int[]a, int i, int j){
+
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+
+            return a;
     }
 
     public static void kvikkSortering(int [] a){ //Sorterer hele tabellen
@@ -319,7 +329,35 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
-            throw new UnsupportedOperationException();
+
+            if (a.length < 0) {
+                throw new UnsupportedOperationException();
+            }
+            int hjelpeverdi = 0;
+            int [] index = new int[a.length];
+            int [] list = a;
+            int antall = 0; //Antall sorteringer
+            for (int i = 0; i < a.length - 1; i++){
+                for (int j = i; j < a.length; j++){
+                    if (a[i] > a[j]){
+                        /*for(int s : a){
+                            //int hei = Integer.parseInt(s);
+                            index[i] = s;
+                        }*/
+                        hjelpeverdi = i;
+                        list = bytteHjelp(a, i, j);
+                        antall ++;
+
+                        }
+                    }
+                }
+
+
+            System.out.println("Antall sorteringer: " + antall);
+            System.out.println("Index " + index[hjelpeverdi] + " ");
+            return list;
+
+
         }
 
         ///// Oppgave 9 //////////////////////////////////////
@@ -448,41 +486,44 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            if (!Character.isAlphabetic(bokstav)){
+            if (bokstav < 0 || bokstav > 257){
                 throw new UnsupportedOperationException();
             }
-            char a = bokstav;
-            char [] c = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
-            char [] d = "abcdefghijklmnopqrstuvwxyzæøå".toCharArray();
-            int maxindex = c.length;
+            char [] a = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
+            int antall = Integer.parseInt(String.valueOf(bokstav));
+
+
+            int maxindex = a.length;
+            System.out.println("Max: " + maxindex);
             int index = 0;
 
-            for(int i = 0; i < maxindex; ++i){
+            for(int i = index; i < maxindex; ++i){
 
-                if( c[index] == a  || d[index] == a){
-                    index = c[i];
+                if(bokstav == a[i]){
+                    antall++;
+                    index = i;
                 }
+                System.out.println("Antalll" + antall);
 
             }
-            return c[index];
+            return index;
 
         }
 
         public static boolean inneholdt(String a, String b) {
-        if(!a.contains(b) || a != "" || b != "") {
-            throw new UnsupportedOperationException();
-        }
+            String test = "";
+            char [] array = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
+            if(!a.contains(b) || !a.equals(test) || !b.equals(test)) {
+                throw new UnsupportedOperationException();
 
-            int counter = 0;
+            }
 
-            for (int i = 0; i < 100; ++i) {
+            for (int i = 0; i < array.length; ++i) {
+                if(b.contains(a) || a == b) {
 
-                    if (a.contains(b) || a == "" || b == "") {
-                        counter = i;
-                        System.out.println("Counter : " + counter);
-                        return true;
-                    }
+                    return true;
                 }
+            }
             return false;
         }
 
