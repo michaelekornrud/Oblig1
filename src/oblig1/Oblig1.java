@@ -140,7 +140,7 @@ public class Oblig1 {
         //mens ombyttinger metoden returnerte 2. DVS at maks metoden er mer effektiv enn maks1 metoden.
             //Dette kommer da også helt ann på hvor høyeste verdi er satt i input-arrayet
         }
-
+                                //permutasjoner og inversjoner - kompendiet
         public static int ombyttinger(int[] a) {
             if (a == null) {
                 throw new NoSuchElementException();
@@ -165,6 +165,8 @@ public class Oblig1 {
         int [] a = {2,3,33,5,6,9,0,1};
           System.out.println(ombyttinger(a));
           System.out.println(maks1(a));
+
+          System.out.print(flett("1234", "DCG"));
         }
 
         ///// Oppgave 2 //////////////////////////////////////
@@ -305,24 +307,36 @@ return count;  //returnerer antall ulike
         /// 7a)
         public static String flett(String s, String t) {
 
-        if (s == null || t == null){
+        if (s.length() == 0 || t.length() == 0){      //Sjekker om s/t =0
             return "";
         }
 
+        //Her deler vi opp stringer til enkeltbokstaver (toCharArray- google)
+        String [] a = s.split("");
+        String [] b = t.split("");
+        
+                 //Lager en outputvariabel
             String inputStringsCombined = "";
-            int inputString_length;
+            int inputString_length;    //Lengde av korteste streng
 
             if (s.length() >= t.length()){
                inputString_length = t.length();
             } else {
                 inputString_length = s.length();
             }
-
+            //Fletter så så lenge det går, til man har kommet til korteste stirnglengde
             for (int i = 0; i < inputString_length; i++) {
                     inputStringsCombined += s.substring(i, i+1) + t.substring(i, i+1);
             }
-            if(s.length() < t.length()) inputStringsCombined += t.substring(s.length());
-            if(s.length() > t.length()) inputStringsCombined += s.substring(t.length());
+
+            //Skriver ut resten av t hvis t er lengst. tilsvarende for s
+            if(s.length() < t.length()){
+                inputStringsCombined += t.substring(s.length());
+            }
+            else {
+                inputStringsCombined += s.substring(t.length());
+            }
+
 
 return inputStringsCombined;
 
@@ -330,7 +344,30 @@ return inputStringsCombined;
 
         /// 7b)
         public static String flett(String... s) {
-            throw new UnsupportedOperationException();
+
+        //Loop over alle strenger, fjern første bokstav dersom strenglengde > 0
+        //Teller for hvert eneste ord som sier hvor langt man har kommet
+        //En bostav for hver ord, så lenge lengden forstatt er der
+
+           String inputStringsCombined = "";
+           int index = 0;
+           int array_length = s.length;
+
+           for (String t : s){
+               index += t.length();
+           }
+
+           int [] a = new int[array_length];
+
+           for (int i = 0; i < index; i++){
+               for (int j = 0; j < array_length; j++){
+                   if (a[j] < s[j].length()){
+                       inputStringsCombined += s[j].toCharArray()[a[j]];
+                       a[j] ++;
+                   }
+               }
+           }
+           return inputStringsCombined;
         }
 
         ///// Oppgave 8 //////////////////////////////////////
