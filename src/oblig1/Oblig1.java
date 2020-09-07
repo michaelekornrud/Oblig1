@@ -1,6 +1,7 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
 
@@ -67,6 +68,15 @@ public class Oblig1 {
             kvikkSortering0(a, fra, til-1); //v = fra, h = til.1
     }
 
+    public static int [] bytteHjelp (int[]a, int i, int j){
+
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+
+            return a;
+    }
+
     public static void kvikkSortering(int [] a){ //Sorterer hele tabellen
             kvikkSortering0(a, 0, a.length-1);
     }
@@ -81,8 +91,19 @@ public class Oblig1 {
 
 
     //Hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
-    public static int gcd(int a, int b){ //Euklids algoritme
-        return b ==0?a:gcd(b, a%b);
+    public static int gcd(int a, int b){ //Euklids algoritme  //Høyeste felles divisor
+        return b ==0 ? a:gcd(b, a%b);
+    }
+
+    public static void bobleSortering(int [] a){  //forelesning
+
+        for (int n = a.length; n > 1; n--){
+            for (int i = 1; i < n; i++){
+                if (a[i-1] > a[i]){
+                    bytt(a, i-1, i);
+                }
+            }
+        }
     }
 
 
@@ -95,21 +116,37 @@ public class Oblig1 {
             for (int i = 1; i < a.length; i++) {
 
                     if (a[i-1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre
-                        int temp = a[i - 1];  //bytter plass på verdiene
-                        a[i - 1] = a[i];
+                        int temp = a[i - 1];
+                        a[i - 1] = a[i]; //bytter plass på verdiene
                         a[i] = temp; //oppdaterer tallet
                     }
                 }
             return a[a.length - 1]; //Returnerer størtste tall/tall som er helt til høyre i arrayet
         }
 
+        public static int maks1(int [] a){ //Annen metode for å finne største verdi i array.
+        int currentMax = a[0];
+        int antallOmbyttinger = 0;
+               for (int i = 0; i <a.length; i++){
+                   if (a[i] > currentMax){
+                       currentMax = a[i];
+                       antallOmbyttinger++;
+                   }
+               }
+               return antallOmbyttinger;
+               //I likhet med ombyttinger-metoden returnerer maks1 antall
+           // ganger tallene må stokkes omm, eller antall ganger loopen må gå før metoden finner høest verdi
+            //Ufra en test jeg har gjort (testet i main metode i oblig1,kunne jeg se at denne metoden returnerete 5,
+        //mens ombyttinger metoden returnerte 2. DVS at maks metoden er mer effektiv enn maks1 metoden.
+            //Dette kommer da også helt ann på hvor høyeste verdi er satt i input-arrayet
+        }
+                                //permutasjoner og inversjoner - kompendiet
         public static int ombyttinger(int[] a) {
             if (a == null) {
                 throw new NoSuchElementException();
             }
 
             int antallOmbyttinger = 0;  //initialiserer antallOmbytter som skal telles opp
-
 
             for (int i = 1; i < a.length; i++) { //looper gjennom arrayet
                 if (a[i - 1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
@@ -118,21 +155,30 @@ public class Oblig1 {
                     int temp = a[i - 1];
                     a[i - 1] = a[i];
                     a[i] = temp;
-                    antallOmbyttinger++;
+                    antallOmbyttinger++;   //Øker ombyttinger med 1 gang pr loop (hvis det er ombyttinger)
                 }
             }
             return antallOmbyttinger;
         }
 
+        public static void main(String [] args){
+        int [] a = {2,3,33,5,6,9,0,1};
+          System.out.println(ombyttinger(a));
+          System.out.println(maks1(a));
+
+          System.out.print(flett("1234", "DCG"));
+        }
+
         ///// Oppgave 2 //////////////////////////////////////
         public static int antallUlikeSortert(int[] a) {
-            int antallUlike = 1;
+            int array_length = a.length;
 
-            if (a.length == 0) {
+            if (array_length == 0) {
                 return 0;
             }
+            int antallUlike = 1;
 
-            for (int i = 0; i < a.length - 1; i++) {
+            for (int i = 0; i < array_length- 1; i++) {
                 if (a[i] > a[i+1]) { //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
                     throw new IllegalStateException("Feil rekkefølge i array");  //kaster avvik
                 }
@@ -238,62 +284,132 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 6 //////////////////////////////////////
         public static void rotasjon(char[] a, int k) {
-         /*for (int i = 0; i < k; i++){
-             rotasjon(a);
-         }*/
-          /* int n = a.length;
+          int array_length = a.length;
+          if (array_length <2) { return;}
 
-           char [] b = new char[k];
-           for (int i = 0; i < k; i++){
-               b[i] = a[n - k + i];
-           }
+          if ((k%=array_length)<0) {k+=array_length;}
 
-           for (int i = n-k-1; i >= 0; i--){
-               a[i + k] = a[i];
-           }
+          int largest_common_divisor = gcd(array_length, k);  //Største felles divisor
 
-           for (int i = 0; i< k; i++){
-               a[i] = (char) b[i];
-           }*/
-          int n = a.length; if (n <2) return;
-          if ((k%=n)<0)k+=n;
+            for (int d = 0; d < largest_common_divisor; d++) { //Antall loops
+                char value = a[d];
 
-          int s = gcd(n, k);  //Største felles divisor
-
-            for (int d = 0; d < s; d++) { //Antall loops
-                char verdi = a[d]; //Hjelpevariabel
-
-                for (int i = d-k, j = d; i!=d; i -=k){
-                    if (i < 0) i+=n;
+                for (int i = d-k, j = d; i!=d; i -= k){
+                    if (i < 0) i+=array_length;
                     a[j] = a[i]; //Sjekker fortegnert til i
                     j=i; //oppdaterter j
                 }
-                a[d+k] = verdi;  //legger tilbake verdiene
+                a[d+k] = value;  //legger tilbake verdiene
             }
         }
 
         ///// Oppgave 7 //////////////////////////////////////
         /// 7a)
         public static String flett(String s, String t) {
-            throw new UnsupportedOperationException();
+
+        if (s.length() == 0 || t.length() == 0){      //Sjekker om s/t =0
+            return "";
         }
+
+        //Her deler vi opp stringer til enkeltbokstaver (toCharArray- google)
+        String [] a = s.split("");
+        String [] b = t.split("");
+        
+                 //Lager en outputvariabel
+            String inputStringsCombined = "";
+            int inputString_length;    //Lengde av korteste streng
+
+            if (s.length() >= t.length()){
+               inputString_length = t.length();
+            } else {
+                inputString_length = s.length();
+            }
+            //Fletter så så lenge det går, til man har kommet til korteste stirnglengde
+            for (int i = 0; i < inputString_length; i++) {
+                    inputStringsCombined += s.substring(i, i+1) + t.substring(i, i+1);
+            }
+
+            //Skriver ut resten av t hvis t er lengst. tilsvarende for s
+            if(s.length() < t.length()){
+                inputStringsCombined += t.substring(s.length());
+            }
+            else {
+                inputStringsCombined += s.substring(t.length());
+            }
+
+
+return inputStringsCombined;
+
+        } 
 
         /// 7b)
         public static String flett(String... s) {
-            throw new UnsupportedOperationException();
+
+        //Loop over alle strenger, fjern første bokstav dersom strenglengde > 0
+        //Teller for hvert eneste ord som sier hvor langt man har kommet
+        //En bostav for hver ord, så lenge lengden forstatt er der
+
+           String inputStringsCombined = "";
+           int index = 0;
+           int array_length = s.length;
+
+           for (String t : s){
+               index += t.length();
+           }
+
+           int [] a = new int[array_length];
+
+           for (int i = 0; i < index; i++){
+               for (int j = 0; j < array_length; j++){
+                   if (a[j] < s[j].length()){
+                       inputStringsCombined += s[j].toCharArray()[a[j]];
+                       a[j] ++;
+                   }
+               }
+           }
+           return inputStringsCombined;
         }
 
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
-            throw new UnsupportedOperationException();
+
+            if (a.length < 0) {
+                throw new UnsupportedOperationException();
+            }
+            int hjelpeverdi = 0;
+            int [] index = new int[a.length];
+            int [] list = a;
+            int antall = 0; //Antall sorteringer
+            for (int i = 0; i < a.length - 1; i++){
+                for (int j = i; j < a.length; j++){
+                    if (a[i] > a[j]){
+                        /*for(int s : a){
+                            //int hei = Integer.parseInt(s);
+                            index[i] = s;
+                        }*/
+                        hjelpeverdi = i;
+                        list = bytteHjelp(a, i, j);
+                        antall ++;
+
+                        }
+                    }
+                }
+
+
+            System.out.println("Antall sorteringer: " + antall);
+            System.out.println("Index " + index[hjelpeverdi] + " ");
+            return list;
+
+
         }
 
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
-            if (a.length <0){
+            /*if (a.length <0){
                 throw new UnsupportedOperationException();
-            }
-            int index = a.length - 1;
+            }*/
+
+          /*      int index = a.length - 1;
             int min = 0;
             int secondSmallest = 0;
             int thirdSmallest = 0;
@@ -307,46 +423,149 @@ return count;  //returnerer antall ulike
                 }
             }
 
-            return new int[]{a[thirdSmallest]};
+            return new int[]{a[thirdSmallest]};*/
+          /*  int firt = Integer.MAX_VALUE;
+            int second = Integer.MAX_VALUE;
+            int third = Integer.MAX_VALUE;
+
+            for (int i = 0; i < a.length; i++){
+                int currentNumber = a[i];
+                if (firt > currentNumber){
+                    third = second;
+                    second = firt;
+                    firt = currentNumber;
+                } else if(second > currentNumber){
+                    third = second;
+                    second = currentNumber;
+                } else if (third > currentNumber){
+                    third = currentNumber;
+                }
+            }
+            return new int [] {third};*/
+          /*  int array_length = a.length;
+            int thirdLargestNumber = 0;
+
+            for (int i = 0; i < array_length; i++ ){
+                for (int j = 0; j < array_length; j++) {
+                    for (int k = 0; k < array_length; k++) {
+                        if (a[i] = a[j] || a[j] < a[k]) {
+                            thirdLargestNumber = a[i];
+                            a[i] = a[j];
+                            a[j] = a[k];
+                            a[k] = thirdLargestNumber;
+                        }
+                    }
+                }
+            }
+            return new int[]{a[thirdLargestNumber]};*/
+            int array_length = a.length;
+            if (array_length < 3){
+                throw new NoSuchElementException("Arrayet sin lengde er mindre enn 3! Dette går ikke");
+            }
+
+           if (array_length <= 3){
+               int [] indexToNumber1 = new int[3];
+               int [] temporaryNumber1 = new int[array_length];
+
+               for (int i = 0; i < array_length; i++){
+                   temporaryNumber1[i] = a[i];
+               }
+               bobleSortering(temporaryNumber1);
+
+               for (int i = 0; i < 3; i++){ //i < 3 fordi programmet skal returnere 3 tall
+                   for (int j = 0; j < array_length; j++){
+                       if (temporaryNumber1[i] == a[j]){
+                           indexToNumber1[i] = j;
+                       }
+                   }
+               }
+               return indexToNumber1;
+           }
+
+           else if (array_length > 3 && array_length <=6){
+               int [] indexToNumber2 = new int[6];
+               int [] temporaryNumber2 = new int[6]; //Kan også bruke a.lenght
+
+               for (int i = 0; i < 6; i++){
+                   temporaryNumber2[i] = a[i];
+               }
+
+               bobleSortering(temporaryNumber2); //fra forelesning
+
+               for (int i = 0; i < 6; i++){
+                   for (int j = 0; j < array_length; j++){
+                       if (temporaryNumber2[i] == a[j]){
+                           indexToNumber2[i] = j;
+                       }
+                   }
+               }
+               return indexToNumber2;
+           }
+
+           else {
+               int [] indexToNumber3 = new int[10];
+               int [] temporaryNumber3 = new int[10];
+
+               for (int i = 0; i < 10; i++){
+                   temporaryNumber3[i] = a[i];
+               }
+               bobleSortering(temporaryNumber3);
+
+               for (int i = 0; i < 10; i++){
+                   for (int j = 0; j < array_length; j++){
+                       if (temporaryNumber3[i] == a[j]){
+                           indexToNumber3[i] = j;
+                       }
+                   }
+               }
+               return indexToNumber3;
+           }
         }
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            if (!Character.isAlphabetic(bokstav)){
+            if (bokstav < 0 || bokstav > 257){
                 throw new UnsupportedOperationException();
             }
-            char a = bokstav;
-            char [] c = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
-            char [] d = "abcdefghijklmnopqrstuvwxyzæøå".toCharArray();
-            int maxindex = c.length;
+            char [] a = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
+            int antall = Integer.parseInt(String.valueOf(bokstav));
+
+
+            int maxindex = a.length;
+            System.out.println("Max: " + maxindex);
             int index = 0;
 
-            for(int i = 0; i < maxindex; ++i){
+            for(int i = index; i < maxindex; ++i){
 
-                if( c[index] == a  || d[index] == a){
-                    index = c[i];
+                if(bokstav == a[i]){
+                    antall++;
+                    index = i;
                 }
+                System.out.println("Antalll" + antall);
 
             }
-            return c[index];
+            return index;
 
         }
 
         public static boolean inneholdt(String a, String b) {
-        if(!a.contains(b) || a != "" || b != "") {
-            throw new UnsupportedOperationException();
+        if (a == null && b == null){
+            System.err.print("Det er ingen bokstaver i stringene");
         }
 
-            int counter = 0;
+            String test = "";
+            char [] array = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
+            if(!a.contains(b) || !a.equals(test) || !b.equals(test)) {
+                throw new UnsupportedOperationException();
 
-            for (int i = 0; i < 100; ++i) {
+            }
 
-                    if (a.contains(b) || a == "" || b == "") {
-                        counter = i;
-                        System.out.println("Counter : " + counter);
-                        return true;
-                    }
+            for (int i = 0; i < array.length; ++i) {
+                if(b.contains(a) || a == b) {
+
+                    return true;
                 }
+            }
             return false;
         }
 
