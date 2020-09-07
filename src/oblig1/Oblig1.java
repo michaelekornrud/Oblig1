@@ -307,40 +307,25 @@ return count;  //returnerer antall ulike
         /// 7a)
         public static String flett(String s, String t) {
 
-        if (s.length() == 0 || t.length() == 0){      //Sjekker om s/t =0
-            return "";
+            // For å lage den "nye" stringen
+            StringBuilder flettet = new StringBuilder();
+
+            // Går gjennom alle indeksene i stringene
+            for (int i = 0; i < s.length() || i < t.length(); i++) {
+
+                // Finner elementet for hver indeks hvis det eksisterer
+                if (i < s.length())
+                    flettet.append(s.charAt(i));
+
+                // Gjør det samme for den andre stringen
+                if (i < t.length())
+                    flettet.append(t.charAt(i));
+            }
+            return flettet.toString();
+
         }
 
-        //Her deler vi opp stringer til enkeltbokstaver (toCharArray- google)
-        String [] a = s.split("");
-        String [] b = t.split("");
-        
-                 //Lager en outputvariabel
-            String inputStringsCombined = "";
-            int inputString_length;    //Lengde av korteste streng
 
-            if (s.length() >= t.length()){
-               inputString_length = t.length();
-            } else {
-                inputString_length = s.length();
-            }
-            //Fletter så så lenge det går, til man har kommet til korteste stirnglengde
-            for (int i = 0; i < inputString_length; i++) {
-                    inputStringsCombined += s.substring(i, i+1) + t.substring(i, i+1);
-            }
-
-            //Skriver ut resten av t hvis t er lengst. tilsvarende for s
-            if(s.length() < t.length()){
-                inputStringsCombined += t.substring(s.length());
-            }
-            else {
-                inputStringsCombined += s.substring(t.length());
-            }
-
-
-return inputStringsCombined;
-
-        } 
 
         /// 7b)
         public static String flett(String... s) {
