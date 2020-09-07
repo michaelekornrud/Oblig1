@@ -161,13 +161,6 @@ public class Oblig1 {
             return antallOmbyttinger;
         }
 
-        public static void main(String [] args){
-        int [] a = {2,3,33,5,6,9,0,1};
-          System.out.println(ombyttinger(a));
-          System.out.println(maks1(a));
-
-          System.out.print(flett("1234", "DCG"));
-        }
 
         ///// Oppgave 2 //////////////////////////////////////
         public static int antallUlikeSortert(int[] a) {
@@ -194,28 +187,7 @@ public class Oblig1 {
 
         ///// Oppgave 3 //////////////////////////////////////
         public static int antallUlikeUsortert(int[] a) {
-            /*int count = 0;
-
-            ArrayList<Integer> diffNum = new ArrayList<>();
-
-            for(int i = 0; i < a.length; i++) {
-                if(!diffNum.contains(a[i])) {
-                    diffNum.add(a[i]);
-                }
-            }
-            if(diffNum.size() == 1) {
-                count = 0;
-            }
-            else {
-                count = diffNum.size();
-            }
-            return count;*/
-
-
-            //Må kaste et avvik
-
-            int count = 0; //initialiserer en hjelpevariabel som skal telle antall ulike tall i array
-
+           int count = 0; //initialiserer en hjelpevariabel som skal telle antall ulike tall i array
             for (int i = 0; i < a.length; i++){  //Looper gjennom arrayet
                 boolean uLik = false;
                 for (int j = 0; j < i; j++){  //Looper gjennom a[i] og a[j]
@@ -229,9 +201,36 @@ public class Oblig1 {
                 }
             }
 
+           /* if (a.length <= 1){
+                return 0;
+            }
+
+                for (int i = 0; i < a.length; i++) {
+                    for (int j = 0; j < a.length; j++) {
+                        if (a[i] != a[j]) {
+                            count++;
+                            break;
+                        }
+
+                    }
+
+                }*/
+
+
 return count;  //returnerer antall ulike
 
         }
+    public static void main(String [] args){
+        int [] a = {1,3,2,5,6};
+        int [] b = {};
+        int [] c ={2};
+        System.out.println(ombyttinger(a));
+        System.out.println(maks1(a));
+        System.out.println("antallUlike Usortert: "+antallUlikeUsortert(a));
+        System.out.println("antallUlike Usortert: "+antallUlikeUsortert(b));
+        System.out.println("antallUlike Usortert: "+antallUlikeUsortert(c));
+        System.out.print(flett("1234", "DCG"));
+    }
 
         ///// Oppgave 4 //////////////////////////////////////
         public static void delsortering(int[] a) {
