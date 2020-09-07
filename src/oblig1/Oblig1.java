@@ -116,12 +116,29 @@ public class Oblig1 {
             for (int i = 1; i < a.length; i++) {
 
                     if (a[i-1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre
-                        int temp = a[i - 1];  //bytter plass på verdiene
-                        a[i - 1] = a[i];
+                        int temp = a[i - 1];
+                        a[i - 1] = a[i]; //bytter plass på verdiene
                         a[i] = temp; //oppdaterer tallet
                     }
                 }
             return a[a.length - 1]; //Returnerer størtste tall/tall som er helt til høyre i arrayet
+        }
+
+        public static int maks1(int [] a){ //Annen metode for å finne største verdi i array.
+        int currentMax = a[0];
+        int antallOmbyttinger = 0;
+               for (int i = 0; i <a.length; i++){
+                   if (a[i] > currentMax){
+                       currentMax = a[i];
+                       antallOmbyttinger++;
+                   }
+               }
+               return antallOmbyttinger;
+               //I likhet med ombyttinger-metoden returnerer maks1 antall
+           // ganger tallene må stokkes omm, eller antall ganger loopen må gå før metoden finner høest verdi
+            //Ufra en test jeg har gjort (testet i main metode i oblig1,kunne jeg se at denne metoden returnerete 5,
+        //mens ombyttinger metoden returnerte 2. DVS at maks metoden er mer effektiv enn maks1 metoden.
+            //Dette kommer da også helt ann på hvor høyeste verdi er satt i input-arrayet
         }
 
         public static int ombyttinger(int[] a) {
@@ -131,7 +148,6 @@ public class Oblig1 {
 
             int antallOmbyttinger = 0;  //initialiserer antallOmbytter som skal telles opp
 
-
             for (int i = 1; i < a.length; i++) { //looper gjennom arrayet
                 if (a[i - 1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
 
@@ -139,10 +155,16 @@ public class Oblig1 {
                     int temp = a[i - 1];
                     a[i - 1] = a[i];
                     a[i] = temp;
-                    antallOmbyttinger++;
+                    antallOmbyttinger++;   //Øker ombyttinger med 1 gang pr loop (hvis det er ombyttinger)
                 }
             }
             return antallOmbyttinger;
+        }
+
+        public static void main(String [] args){
+        int [] a = {2,3,33,5,6,9,0,1};
+          System.out.println(ombyttinger(a));
+          System.out.println(maks1(a));
         }
 
         ///// Oppgave 2 //////////////////////////////////////
@@ -260,30 +282,15 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 6 //////////////////////////////////////
         public static void rotasjon(char[] a, int k) {
-         /*for (int i = 0; i < k; i++){
-             rotasjon(a);
-         }*/
-          /* int array_length = a.length;
+          int array_length = a.length;
+          if (array_length <2) { return;}
 
-           char [] b = new char[k];
-           for (int i = 0; i < k; i++){
-               b[i] = a[array_length - k + i];
-           }
-
-           for (int i = array_length-k-1; i >= 0; i--){
-               a[i + k] = a[i];
-           }
-
-           for (int i = 0; i< k; i++){
-               a[i] = (char) b[i];
-           }*/
-          int array_length = a.length; if (array_length <2) return;
-          if ((k%=array_length)<0)k+=array_length;
+          if ((k%=array_length)<0) {k+=array_length;}
 
           int largest_common_divisor = gcd(array_length, k);  //Største felles divisor
 
             for (int d = 0; d < largest_common_divisor; d++) { //Antall loops
-                char value = a[d]; //Hjelpevariabel
+                char value = a[d];
 
                 for (int i = d-k, j = d; i!=d; i -= k){
                     if (i < 0) i+=array_length;
@@ -298,30 +305,28 @@ return count;  //returnerer antall ulike
         /// 7a)
         public static String flett(String s, String t) {
 
-        if (s == null && t == null){
+        if (s == null || t == null){
             return "";
         }
 
-            String resultat = "";
-            int index;
+            String inputStringsCombined = "";
+            int inputString_length;
 
-            if (s.length() <= t.length()) {
-                index = t.length();
-            } else  {
-                index = s.length();
+            if (s.length() >= t.length()){
+               inputString_length = t.length();
+            } else {
+                inputString_length = s.length();
             }
 
-            for(int i=0; i<index; i++){
-                resultat += s.substring(i, i+1) + t.substring(i, i+1);
+            for (int i = 0; i < inputString_length; i++) {
+                    inputStringsCombined += s.substring(i, i+1) + t.substring(i, i+1);
             }
+            if(s.length() < t.length()) inputStringsCombined += t.substring(s.length());
+            if(s.length() > t.length()) inputStringsCombined += s.substring(t.length());
 
-            if(s.length() < t.length()) resultat += t.substring(s.length());
-            if(s.length() > t.length()) resultat += s.substring(t.length());
+return inputStringsCombined;
 
-            return resultat;
-        } //Fungerer ikke
-
-
+        } 
 
         /// 7b)
         public static String flett(String... s) {
@@ -507,6 +512,10 @@ return count;  //returnerer antall ulike
         }
 
         public static boolean inneholdt(String a, String b) {
+        if (a == null && b == null){
+            System.err.print("Det er ingen bokstaver i stringene");
+        }
+
             String test = "";
             char [] array = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
             if(!a.contains(b) || !a.equals(test) || !b.equals(test)) {
