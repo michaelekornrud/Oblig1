@@ -68,13 +68,10 @@ public class Oblig1 {
             kvikkSortering0(a, fra, til-1); //v = fra, h = til.1
     }
 
-    public static int [] bytteHjelp (int[]a, int i, int j){
-
+    public static void bytteHjelp (int[]a, int i, int j){
                 int temp = a[i];
                 a[i] = a[j];
                 a[j] = temp;
-
-            return a;
     }
 
     public static void kvikkSortering(int [] a){ //Sorterer hele tabellen
@@ -357,36 +354,32 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
+            System.out.println("Arrayliste  : " + Arrays.toString(a));
 
             if (a.length < 0) {
                 throw new UnsupportedOperationException();
             }
-            int hjelpeverdi = 0;
-            int [] index = new int[a.length];
-            int [] list = a;
-            int antall = 0; //Antall sorteringer
-            for (int i = 0; i < a.length - 1; i++){
-                for (int j = i; j < a.length; j++){
-                    if (a[i] > a[j]){
-                        /*for(int s : a){
-                            //int hei = Integer.parseInt(s);
-                            index[i] = s;
-                        }*/
-                        hjelpeverdi = i;
-                        list = bytteHjelp(a, i, j);
-                        antall ++;
+            int [] index = new int[a.length]; //Oppretter et array for lagring av indexer
+            int [] b = a.clone(); //Lager en klone av a som vi kan sortere.
 
+
+            for (int i = 0; i < a.length; ++i) { //
+                for (int j = 1; j < a.length; j++) {
+                        if (b[j - 1] >= b[j]) { // Dersom b0 er mindre enn b1
+                            bytt(b, j-1, j); //Bruker tidligere laget kode for å bytte om på verdiene dersom de er like.
+                            index[j] = j; //Lagrer index i index arrayet.
                         }
-                    }
+                        else {
+                            index[i] = i; //Dersom b1 > b0 skal ingen ting skje, og jeg lagrer indexene. 
+                        }
                 }
+            }
+            System.out.println("Sortert liste: " + Arrays.toString(b));
+            System.out.println("Indexliste : " + Arrays.toString(index));
+            return index;
+    }
 
 
-            System.out.println("Antall sorteringer: " + antall);
-            System.out.println("Index " + index[hjelpeverdi] + " ");
-            return list;
-
-
-        }
 
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
@@ -509,15 +502,16 @@ return count;  //returnerer antall ulike
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            if (bokstav < 0 || bokstav > 257){
+            String empty = "";
+            int character = Integer.parseInt(String.valueOf(bokstav));
+            if (!Character.isAlphabetic(bokstav)){
                 throw new UnsupportedOperationException();
             }
             char [] a = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
-            int antall = Integer.parseInt(String.valueOf(bokstav));
+            int antall = 0;
 
 
             int maxindex = a.length;
-            System.out.println("Max: " + maxindex);
             int index = 0;
 
             for(int i = index; i < maxindex; ++i){
@@ -527,7 +521,6 @@ return count;  //returnerer antall ulike
                     index = i;
                 }
                 System.out.println("Antalll" + antall);
-
             }
             return index;
 

@@ -696,7 +696,7 @@ import java.util.*;
                 System.out.println
                         ("Oppgave 8: h) Parametertabellen endres når den er lik");
                 System.out.println
-                        ("            " + Arrays.toString(a));
+                        ("              " + Arrays.toString(a));
 
                 antallFeil++;
             }
