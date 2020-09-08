@@ -92,7 +92,11 @@ public class Oblig1 {
         return b ==0 ? a:gcd(b, a%b);
     }
 
-    public static void bobleSortering(int [] a){  //forelesning
+
+    //Boblesortering er en sorteringsalgoritme som gjentatte ganger går gjennom listen,
+    // sammenligner tilstørende elementer og bytter dem hvis de er i feil rekkefølge.
+    // Loopen gjennom listen gjentas til listen er sortert
+    public static void bobleSortering(int [] a){  //forelesning,
 
         for (int n = a.length; n > 1; n--){
             for (int i = 1; i < n; i++){
@@ -184,6 +188,7 @@ public class Oblig1 {
 
         ///// Oppgave 3 //////////////////////////////////////
         public static int antallUlikeUsortert(int[] a) {
+
            int count = 0; //initialiserer en hjelpevariabel som skal telle antall ulike tall i array
             for (int i = 0; i < a.length; i++){  //Looper gjennom arrayet
                 boolean uLik = false;
@@ -193,8 +198,8 @@ public class Oblig1 {
                         break; //Hopper ut av interasjon og tester videre om det er flere tall som er like
                     }
                 }
-                if (!uLik){  //Test som teller opp hvor mange ulike som er false.
-                    count++; //Teller opp
+                if (!uLik){  //Hvis tallet er ulikt tallet ved siden av seg, blir det lagt til verdi i count.
+                    count++;
                 }
             }
 
@@ -217,30 +222,19 @@ public class Oblig1 {
 return count;  //returnerer antall ulike
 
         }
-    public static void main(String [] args){
-        int [] a = {1,3,2,5,6};
-        int [] b = {};
-        int [] c ={2};
-        System.out.println(ombyttinger(a));
-        System.out.println(maks1(a));
-        System.out.println("antallUlike Usortert: "+antallUlikeUsortert(a));
-        System.out.println("antallUlike Usortert: "+antallUlikeUsortert(b));
-        System.out.println("antallUlike Usortert: "+antallUlikeUsortert(c));
-        System.out.print(flett("1234", "DCG"));
-    }
+
 
         ///// Oppgave 4 //////////////////////////////////////
         public static void delsortering(int[] a) {
             //throw new UnsupportedOperationException();
-            int array_length = a.length;
+           int array_length = a.length;
             int left = 0;  //Starter på venstre side med verdu 0
             int right = array_length-1;  //Starter på høyre side med verdi (array sin lenge -1)
-
 
             if (array_length == 0){ return;}
 
             while (left <= right){
-                if (((a[left] % 2) == 0) && !(((a[right] %2)==0))){
+                if (((a[left] % 2) == 0) && !(((a[right] %2)==0))){ //Sjekk av partall og oddetall
                    bytt(a, left++, right--); //Bruker metoden bytt for å sortere verdiene i arrayet
                 }
                 else if ((a[left] %2 )==0){ //Sjekker om tallene på venstre er partall/oddetall
@@ -254,36 +248,46 @@ return count;  //returnerer antall ulike
                     left++;
                 }
             }
-
             kvikkSortering(a, 0, left);
             kvikkSortering(a, left, array_length);
-
-
         }
 
-        ///// Oppgave 5 //////////////////////////////////////
+    ///// Oppgave 5 //////////////////////////////////////
         public static void rotasjon(char[] a) {
-            if (a ==null) {
-                throw new UnsupportedOperationException("Det er ingen verdier i arrayet");
-            }
+            /*int index = 0; //initialiserer indeksen
+            int arr_length = a.length-1;
 
-            int index = 0; //initialiserer indeksen
-            int n = a.length-1;
-
-            for (int i = 0; i < n; i++){ //Looper igjennom arrayet og endrer på posisjonen til siste verdi
-                char c = a[n];
-                a[n] = a[index];
+            for (int i = 0; i < arr_length; i++){ //Looper igjennom arrayet og endrer på posisjonen til siste verdi
+               //Oppdaterer verdien c
+                char c = a[arr_length];
+                a[arr_length] = a[index];
                 a[index] = c;
                 index++;
+            }*/
+
+            int arr_length = a.length;
+
+            if (arr_length == 0){
+                return;
             }
+
+            char last = a[arr_length-1];
+            for (int i = arr_length-2; i >=0; i--){
+                a[i+1] = a[i];
+            }
+            a[0] = last;
         }
 
         ///// Oppgave 6 //////////////////////////////////////
+    //https://www.techiedelight.com/right-rotate-an-array-k-times/ - Kilde til flere metoder som gjør det samme
         public static void rotasjon(char[] a, int k) {
-          int array_length = a.length;
+
+         int array_length = a.length;
           if (array_length <2) { return;}
 
-          if ((k%=array_length)<0) {k+=array_length;}
+          if ((k %= array_length) <0 ) {
+              k += array_length;
+          }
 
           int largest_common_divisor = gcd(array_length, k);  //Største felles divisor
 
@@ -297,7 +301,13 @@ return count;  //returnerer antall ulike
                 }
                 a[d+k] = value;  //legger tilbake verdiene
             }
+            /*for (int i = 0; i < k; i++){
+                rotasjon(a);
+            }*/
+
+
         }
+
 
         ///// Oppgave 7 //////////////////////////////////////
         /// 7a)
@@ -321,8 +331,6 @@ return count;  //returnerer antall ulike
 
         }
 
-
-
         /// 7b)
         public static String flett(String... s) {
 
@@ -330,16 +338,21 @@ return count;  //returnerer antall ulike
         //Teller for hvert eneste ord som sier hvor langt man har kommet
         //En bostav for hver ord, så lenge lengden forstatt er der
 
+
+            //initialiserer hjelpevariabler
            String inputStringsCombined = "";
            int index = 0;
            int array_length = s.length;
 
+            //looper igjennom strigene og oppdaterer indexen
            for (String t : s){
                index += t.length();
            }
 
+            //Initialiserer ny hjelpeveri ved å lage et nytt array a som er lik lengden til s.length
            int [] a = new int[array_length];
 
+           //Looper igjennom den oppdaterte indeksen og oppdaterer inpusStringsCombined
            for (int i = 0; i < index; i++){
                for (int j = 0; j < array_length; j++){
                    if (a[j] < s[j].length()){
@@ -348,8 +361,10 @@ return count;  //returnerer antall ulike
                    }
                }
            }
+           //Returnerer den nye stringen som er kombinert med først til n-te bokstav i hver inputstirng
            return inputStringsCombined;
         }
+
 
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
@@ -378,78 +393,32 @@ return count;  //returnerer antall ulike
             return index;
     }
 
+    public static void main(String [] args){
+        System.out.println(flett("1234", "ABCD", "EFGH", "IJKM"));
+        int [] a = {5, 2, 1};
+        System.out.println(Arrays.toString(tredjeMin(a)));
 
+    }
 
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
-            /*if (a.length <0){
-                throw new UnsupportedOperationException();
-            }*/
-
-          /*      int index = a.length - 1;
-            int min = 0;
-            int secondSmallest = 0;
-            int thirdSmallest = 0;
-            for(int i=1;i<index;i++){
-                if(a[i] < a[min]){
-                    min = i;
-                }else if(a[i] < a[secondSmallest]){
-                    secondSmallest = i;
-                }else if(a[i]< a[thirdSmallest]){
-                    thirdSmallest = i;
-                }
-            }
-
-            return new int[]{a[thirdSmallest]};*/
-          /*  int firt = Integer.MAX_VALUE;
-            int second = Integer.MAX_VALUE;
-            int third = Integer.MAX_VALUE;
-
-            for (int i = 0; i < a.length; i++){
-                int currentNumber = a[i];
-                if (firt > currentNumber){
-                    third = second;
-                    second = firt;
-                    firt = currentNumber;
-                } else if(second > currentNumber){
-                    third = second;
-                    second = currentNumber;
-                } else if (third > currentNumber){
-                    third = currentNumber;
-                }
-            }
-            return new int [] {third};*/
-          /*  int array_length = a.length;
-            int thirdLargestNumber = 0;
-
-            for (int i = 0; i < array_length; i++ ){
-                for (int j = 0; j < array_length; j++) {
-                    for (int k = 0; k < array_length; k++) {
-                        if (a[i] = a[j] || a[j] < a[k]) {
-                            thirdLargestNumber = a[i];
-                            a[i] = a[j];
-                            a[j] = a[k];
-                            a[k] = thirdLargestNumber;
-                        }
-                    }
-                }
-            }
-            return new int[]{a[thirdLargestNumber]};*/
+      //lager en hjelpevariabel a.length, og kaster et avvik hvis lengden til input-arrayet er mindre enn 3
             int array_length = a.length;
             if (array_length < 3){
                 throw new NoSuchElementException("Arrayet sin lengde er mindre enn 3! Dette går ikke");
             }
 
-           if (array_length <= 3){
+           if (array_length <= 3){ //input-arrayet må ha en lengde på minimum 3
+               //Her skal programmet finne indekxen til det tresj minste tallet i input-arrayet
                int [] indexToNumber1 = new int[3];
                int [] temporaryNumber1 = new int[array_length];
 
-               for (int i = 0; i < array_length; i++){
-                   temporaryNumber1[i] = a[i];
-               }
+               System.arraycopy(a, 0, temporaryNumber1, 0, array_length); //Enklere kode enn  for (int i = 0; i < array_length; i++){
+                                                                                            //temporaryNumber1[i] = a[i];
                bobleSortering(temporaryNumber1);
 
-               for (int i = 0; i < 3; i++){ //i < 3 fordi programmet skal returnere 3 tall
+               //Looper igjennom arrayet og oppdaterer indeksen til laveste tall
+               for (int i = 0; i < 3; i++){
                    for (int j = 0; j < array_length; j++){
                        if (temporaryNumber1[i] == a[j]){
                            indexToNumber1[i] = j;
@@ -458,17 +427,16 @@ return count;  //returnerer antall ulike
                }
                return indexToNumber1;
            }
-
-           else if (array_length > 3 && array_length <=6){
+           else if (array_length <= 6){
                int [] indexToNumber2 = new int[6];
                int [] temporaryNumber2 = new int[6]; //Kan også bruke a.lenght
 
-               for (int i = 0; i < 6; i++){
-                   temporaryNumber2[i] = a[i];
-               }
-
+               System.arraycopy(a, 0, temporaryNumber2, 0, 6); //Enklere kode enn   for (int i = 0; i < 6; i++){
+                                                                                    //temporaryNumber2[i] = a[i];
                bobleSortering(temporaryNumber2); //fra forelesning
 
+
+               //Looper igjennom arrayet og oppdaterer indeksen til nest laveste tall
                for (int i = 0; i < 6; i++){
                    for (int j = 0; j < array_length; j++){
                        if (temporaryNumber2[i] == a[j]){
@@ -483,11 +451,10 @@ return count;  //returnerer antall ulike
                int [] indexToNumber3 = new int[10];
                int [] temporaryNumber3 = new int[10];
 
-               for (int i = 0; i < 10; i++){
-                   temporaryNumber3[i] = a[i];
-               }
-               bobleSortering(temporaryNumber3);
+               System.arraycopy(a, 0, temporaryNumber3, 0, 10);
+               bobleSortering(temporaryNumber3); //fra forelesning
 
+               //Looper igjennom arrayet og oppdaterer indeksen til tredj laveste tall
                for (int i = 0; i < 10; i++){
                    for (int j = 0; j < array_length; j++){
                        if (temporaryNumber3[i] == a[j]){
