@@ -8,8 +8,6 @@ public class Oblig1 {
 
         private Oblig1() {}
 
-
-
      //metode for å forenkle byttene, hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
         public static void bytt(int[] a, int i, int j) {
             int temp = a[i];
@@ -355,13 +353,6 @@ public class Oblig1 {
 
     }
 
-    public static void main(String [] args){
-        System.out.println(flett("1234", "ABCD", "EFGH", "IJKM"));
-        int [] a = {5, 2, 1};
-        System.out.println(Arrays.toString(tredjeMin(a)));
-
-    }
-
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
       //lager en hjelpevariabel a.length, og kaster et avvik hvis lengden til input-arrayet er mindre enn 3
@@ -518,9 +509,6 @@ public class Oblig1 {
                 return false;
             }
         }
-
-
-
 }  // Oblig1
 
 
