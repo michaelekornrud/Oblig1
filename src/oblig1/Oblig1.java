@@ -297,10 +297,8 @@ public class Oblig1 {
 
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
-            //System.out.println("Arrayliste  : " + Arrays.toString(a));
 
-            ////// Versjon 1 //////////////////////////////////
-            /*if (a.length < 0) {
+            if (a.length < 0) {
                 throw new UnsupportedOperationException();
             }
             int [] index = new int[a.length]; //Oppretter et array for lagring av indexer
@@ -318,48 +316,7 @@ public class Oblig1 {
                         }
                 }
             }
-            //System.out.println("Sortert liste: " + Arrays.toString(b));
-            //System.out.println("Indexliste : " + Arrays.toString(index));
-
-            return index;*/
-
-            ////// Versjon 2 /////////////////////////////////
-            // fyll inn kode for å deklarere arrayene b og c
-
-            int [] b = a.clone();
-            boolean [] c = new boolean[a.length];
-            int verdi;
-
-            for (int i = 0; i < a.length; i++) {
-                int antallElementerMindre = 0;
-                verdi = a[i];
-
-                for(int j = 0; j < a.length; j++) {
-                    if(a[j] < verdi) {
-                        antallElementerMindre ++;
-                        b[j] = j;
-                        c[j] = true;
-                    }
-                }
-
-            // fyll inn kode for å sjekke om indeksen er opptatt/ plusse på indeksen her
-                if (verdi >= b.length){
-                    
-
-                }
-
-
-            }
-            return b;
-
-
-    }
-
-    public static void main(String [] args){
-        System.out.println(flett("1234", "ABCD", "EFGH", "IJKM"));
-        int [] a = {5, 2, 1};
-        System.out.println(Arrays.toString(tredjeMin(a)));
-
+            return index;
     }
 
         ///// Oppgave 9 //////////////////////////////////////
@@ -449,9 +406,9 @@ public class Oblig1 {
 
         public static boolean inneholdt(String a, String b) {
         //////Versjon 1 ///////////////////////////////
-            /*int [] test = {};
-            //if (!a.equals(test) || !b.equals(test)) {
-                if(!a.contains(b)) { // || !a.equals(test) || !b.equals(test)
+            int [] test = {};
+
+                if(!a.contains(b)) {
                     throw new UnsupportedOperationException();
                 }
 
@@ -462,33 +419,23 @@ public class Oblig1 {
                 for(int j = 0; j <b.length(); ++j) {
                     values[i] = bokstavNr(a.charAt(i));
                     compare[j] = bokstavNr(b.charAt(j));
-                    System.out.println("Values[i]: " + values[i]);
-                    System.out.println("Compare[i]: " + compare[i]);
                     if (i == a.length() - 1 && j == b.length() - 1){
                         break;
                     }
-
                     if (values[i] == compare[j]){
                         return true;
                     }
-
                 }
             }
-            System.out.println("Values : " + Arrays.toString(values));
-            System.out.println("Compare : " + Arrays.toString(compare));
-
             if (Arrays.asList(compare).containsAll(Arrays.asList(values))){ //|| Arrays.equals(compare, test) || Arrays.equals(values,test)
-                System.out.println("True!");
                 return true;
-
             }
             else {
-                System.out.println("False!");
                 return false;
-            }*/
+            }
 
         /////Versjon 2 ///////////////////////////////
-            ArrayList<Character> charsINa = new ArrayList<>();
+           /*ArrayList<Character> charsINa = new ArrayList<>();
             ArrayList<Character> charsINb = new ArrayList<>();
 
             for (int i = 0; i < a.length(); ++i){
@@ -516,7 +463,7 @@ public class Oblig1 {
             }
             else {
                 return false;
-            }
+            }*/
         }
 
 
