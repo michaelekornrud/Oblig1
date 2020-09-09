@@ -1,9 +1,8 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.NoSuchElementException;
+import java.lang.reflect.Array;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class Oblig1 {
 
@@ -136,10 +135,10 @@ public class Oblig1 {
                }
                return antallOmbyttinger;
                //I likhet med ombyttinger-metoden returnerer maks1 antall
-           // ganger tallene må stokkes omm, eller antall ganger loopen må gå før metoden finner høest verdi
-            //Ufra en test jeg har gjort (testet i main metode i oblig1,kunne jeg se at denne metoden returnerete 5,
-        //mens ombyttinger metoden returnerte 2. DVS at maks metoden er mer effektiv enn maks1 metoden.
-            //Dette kommer da også helt ann på hvor høyeste verdi er satt i input-arrayet
+               //ganger tallene må stokkes omm, eller antall ganger loopen må gå før metoden finner høest verdi
+               //Ufra en test jeg har gjort (testet i main metode i oblig1,kunne jeg se at denne metoden returnerete 5,
+               //mens ombyttinger metoden returnerte 2. DVS at maks metoden er mer effektiv enn maks1 metoden.
+               //Dette kommer da også helt ann på hvor høyeste verdi er satt i input-arrayet
         }
                                 //permutasjoner og inversjoner - kompendiet
         public static int ombyttinger(int[] a) {
@@ -377,9 +376,10 @@ public class Oblig1 {
 
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
-            System.out.println("Arrayliste  : " + Arrays.toString(a));
+            //System.out.println("Arrayliste  : " + Arrays.toString(a));
 
-            if (a.length < 0) {
+            ////// Versjon 1 //////////////////////////////////
+            /*if (a.length < 0) {
                 throw new UnsupportedOperationException();
             }
             int [] index = new int[a.length]; //Oppretter et array for lagring av indexer
@@ -388,18 +388,50 @@ public class Oblig1 {
 
             for (int i = 0; i < a.length; ++i) { //
                 for (int j = 1; j < a.length; j++) {
-                        if (b[j - 1] >= b[j]) { // Dersom b0 er mindre enn b1
+                        if (b[j - 1] >= b[j]) { // Dersom b0 er mindre eller lik b1
                             bytt(b, j-1, j); //Bruker tidligere laget kode for å bytte om på verdiene dersom de er like.
                             index[j] = j; //Lagrer index i index arrayet.
                         }
                         else {
-                            index[i] = i; //Dersom b1 > b0 skal ingen ting skje, og jeg lagrer indexene. 
+                            index[i] = i; //Dersom b1 > b0 skal ingen ting skje, og jeg lagrer indexene.
                         }
                 }
             }
-            System.out.println("Sortert liste: " + Arrays.toString(b));
-            System.out.println("Indexliste : " + Arrays.toString(index));
-            return index;
+            //System.out.println("Sortert liste: " + Arrays.toString(b));
+            //System.out.println("Indexliste : " + Arrays.toString(index));
+
+            return index;*/
+
+            ////// Versjon 2 /////////////////////////////////
+            // fyll inn kode for å deklarere arrayene b og c
+
+            int [] b = a.clone();
+            boolean [] c = new boolean[a.length];
+            int verdi = 0;
+
+            for (int i = 0; i < a.length; i++) {
+                int antallElementerMindre = 0;
+                verdi = a[i];
+
+                for(int j = 0; j < a.length; j++) {
+                    if(a[j] < verdi) {
+                        antallElementerMindre ++;
+                        b[j] = j;
+                        c[j] = true;
+                    }
+                }
+
+            // fyll inn kode for å sjekke om indeksen er opptatt/ plusse på indeksen her
+                if (verdi >= b.length){
+                    
+
+                }
+
+
+            }
+            return b;
+
+
     }
 
     public static void main(String [] args){
@@ -477,50 +509,96 @@ public class Oblig1 {
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            String empty = "";
-            int character = Integer.parseInt(String.valueOf(bokstav));
-            if (!Character.isAlphabetic(bokstav)){
+            char empty = 0;
+            if (!Character.isAlphabetic(bokstav)) {
                 throw new UnsupportedOperationException();
             }
-            char [] a = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
-            int antall = 0;
 
+            int [] a = new int[256];
+            int position = bokstav ;
+            int value = 0;
+            for (int i = 0; i < a.length; ++i){
+                a[i] = position;
+                value = position;
 
-            int maxindex = a.length;
-            int index = 0;
-
-            for(int i = index; i < maxindex; ++i){
-
-                if(bokstav == a[i]){
-                    antall++;
-                    index = i;
-                }
-                System.out.println("Antalll" + antall);
             }
-            return index;
 
+            return value;
         }
 
         public static boolean inneholdt(String a, String b) {
-        if (a == null && b == null){
-            System.err.print("Det er ingen bokstaver i stringene");
-        }
+        //////Versjon 1 ///////////////////////////////
+            /*int [] test = {};
+            //if (!a.equals(test) || !b.equals(test)) {
+                if(!a.contains(b)) { // || !a.equals(test) || !b.equals(test)
+                    throw new UnsupportedOperationException();
+                }
 
-            String test = "";
-            char [] array = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ".toCharArray();
-            if(!a.contains(b) || !a.equals(test) || !b.equals(test)) {
-                throw new UnsupportedOperationException();
+            int [] values = new int[a.length()];
+            int [] compare  = new int[b.length()];
 
-            }
+            for (int i = 0; i < a.length(); ++i) {
+                for(int j = 0; j <b.length(); ++j) {
+                    values[i] = bokstavNr(a.charAt(i));
+                    compare[j] = bokstavNr(b.charAt(j));
+                    System.out.println("Values[i]: " + values[i]);
+                    System.out.println("Compare[i]: " + compare[i]);
+                    if (i == a.length() - 1 && j == b.length() - 1){
+                        break;
+                    }
 
-            for (int i = 0; i < array.length; ++i) {
-                if(b.contains(a) || a == b) {
+                    if (values[i] == compare[j]){
+                        return true;
+                    }
 
-                    return true;
                 }
             }
-            return false;
+            System.out.println("Values : " + Arrays.toString(values));
+            System.out.println("Compare : " + Arrays.toString(compare));
+
+            if (Arrays.asList(compare).containsAll(Arrays.asList(values))){ //|| Arrays.equals(compare, test) || Arrays.equals(values,test)
+                System.out.println("True!");
+                return true;
+
+            }
+            else {
+                System.out.println("False!");
+                return false;
+            }*/
+
+        /////Versjon 2 ///////////////////////////////
+            ArrayList<Character> charsINa = new ArrayList<>();
+            ArrayList<Character> charsINb = new ArrayList<>();
+
+            for (int i = 0; i < a.length(); ++i){
+                charsINa.add(a.charAt(i));
+            }
+
+            for (int i = 0; i < b.length(); ++i){
+                charsINb.add(b.charAt(i));
+            }
+
+            //System.out.println("A: " + charsINa);
+            //System.out.println("B: " + charsINb);
+
+            for (int i = charsINa.size() - 1; i >= 0; i--){
+                for (int j  = charsINb.size() - 1; j >= 0; j--){
+                    if(charsINa.get(i) == charsINb.get(j)){
+                        charsINa.remove(i);
+                        charsINb.remove(i);
+                        break;
+                    }
+                }
+            }
+            if(charsINa.size() == 0 || charsINb.size() == 0){
+                return true;
+            }
+            else {
+                return false;
+            }
         }
+
+
 
 }  // Oblig1
 
