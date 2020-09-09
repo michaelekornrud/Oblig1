@@ -648,7 +648,7 @@ import java.util.*;
 
             if (indeks[0] != 0) {
                 System.out.println
-                        ("Opgave 8: e) indeks[0] skal være lik 0!");
+                        ("Opgave 8: e) indeks[0] skal være lik 0!" + "Index0 = " + indeks[0]);
                 antallFeil++;
             }
 
@@ -678,7 +678,6 @@ import java.util.*;
                 if (!Arrays.equals(b, d)) {
                     System.out.println
                             ("Oppgave 8: g) Feil i indekstabellen for a = " + Arrays.toString(d));
-                    System.out.println("Fra oppg 8 g: " + Arrays.toString(b));
 
                     antallFeil++;
                     break;
@@ -705,7 +704,6 @@ import java.util.*;
             if (!Arrays.equals(b, d)) {
                 System.out.println
                         ("Oppgave 8: i) Feil i indekstabellen for a = " + Arrays.toString(d));
-                System.out.println("Fra oppg 8 i: " + Arrays.toString(b));
 
                 antallFeil++;
             }
