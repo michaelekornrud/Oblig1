@@ -2,11 +2,10 @@
 
 Denne oppgaven er en innlevering i Algoritmer og Datastrukturer. 
 Oppgaven er levert av følgende studenter:
-* Navn Navnesen, S123456, s123456@oslomet.no
 * Johannes Eerdahl Andresen, s341876, s341876@oslomet.no
 * Aina Turum Wangsmo, s341826, s341826@oslomet.no
 * Ole-Michael Ekornrud, s341866, s341866@oslomet.no
-* ...
+
 
 # Arbeidsfordeling
 
