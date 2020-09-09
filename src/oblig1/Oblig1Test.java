@@ -677,7 +677,8 @@ import java.util.*;
 
                 if (!Arrays.equals(b, d)) {
                     System.out.println
-                            ("Oppgave 8: g) Feil i indekstabellen for a = " + Arrays.toString(a));
+                            ("Oppgave 8: g) Feil i indekstabellen for a = " + Arrays.toString(d));
+                    System.out.println("Fra oppg 8 g: " + Arrays.toString(b));
 
                     antallFeil++;
                     break;
@@ -703,7 +704,8 @@ import java.util.*;
 
             if (!Arrays.equals(b, d)) {
                 System.out.println
-                        ("Oppgave 8: i) Feil i indekstabellen for a = " + Arrays.toString(a));
+                        ("Oppgave 8: i) Feil i indekstabellen for a = " + Arrays.toString(d));
+                System.out.println("Fra oppg 8 i: " + Arrays.toString(b));
 
                 antallFeil++;
             }
