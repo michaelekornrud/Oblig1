@@ -189,19 +189,28 @@ public class Oblig1 {
         ///// Oppgave 3 //////////////////////////////////////
         public static int antallUlikeUsortert(int[] a) {
 
-           int count = 0; //initialiserer en hjelpevariabel som skal telle antall ulike tall i array
-            for (int i = 0; i < a.length; i++){  //Looper gjennom arrayet
-                boolean uLik = false;
-                for (int j = 0; j < i; j++){  //Looper gjennom a[i] og a[j]
-                    if (a [i] == a[j]){   //Sjekker om tallene er like
-                        uLik = true;
-                        break; //Hopper ut av interasjon og tester videre om det er flere tall som er like
-                    }
-                }
-                if (!uLik){  //Hvis tallet er ulikt tallet ved siden av seg, blir det lagt til verdi i count.
-                    count++;
+        // hjelpevariabel for å telle antall variabler
+            int count = 0;
+
+            // Initialiserer en arraylist for å legge elementet inn der, for å lettere skille de ut
+            ArrayList<Integer> diffNum = new ArrayList<>();
+
+            // Går gjennom heltallstabellen og sjekker om elementet ligger i arraylisten diffNum, hvis ikke,
+            // legger vi den til
+            for(int i = 0; i < a.length; i++) {
+                if(!diffNum.contains(a[i])) {
+                    diffNum.add(a[i]);
                 }
             }
+            if(diffNum.size() == 1) {
+                count = 1;
+            }
+            else {
+                count = diffNum.size();
+            }
+            return count; // returnerer her hvor mange av elementene fra a som er lagt inn i diffNum
+
+        }
 
            /* if (a.length <= 1){
                 return 0;
@@ -219,9 +228,9 @@ public class Oblig1 {
                 }*/
 
 
-return count;  //returnerer antall ulike
+  //returnerer antall ulike
 
-        }
+
 
 
         ///// Oppgave 4 //////////////////////////////////////
