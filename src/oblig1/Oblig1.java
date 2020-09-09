@@ -67,25 +67,6 @@ public class Oblig1 {
             kvikkSortering0(a, fra, til-1); //v = fra, h = til.1
     }
 
-    public static void bytteHjelp (int[]a, int i, int j){
-                int temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
-    }
-
-    public static void kvikkSortering(int [] a){ //Sorterer hele tabellen
-            kvikkSortering0(a, 0, a.length-1);
-    }
-
-    /*public static void rotasjonAvEn(int [] a){
-            int last = a[a.length-1];
-            for (int i = a.length-2; i>=0; i--){
-                a[i+1] = a[i];
-            }
-            a[0] = last;
-    }*/
-
-
     //Hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
     public static int gcd(int a, int b){ //Euklids algoritme  //Høyeste felles divisor
         return b ==0 ? a:gcd(b, a%b);
@@ -95,8 +76,7 @@ public class Oblig1 {
     //Boblesortering er en sorteringsalgoritme som gjentatte ganger går gjennom listen,
     // sammenligner tilstørende elementer og bytter dem hvis de er i feil rekkefølge.
     // Loopen gjennom listen gjentas til listen er sortert
-    public static void bobleSortering(int [] a){  //forelesning,
-
+    public static void bobleSortering(int [] a){  //forelesning
         for (int n = a.length; n > 1; n--){
             for (int i = 1; i < n; i++){
                 if (a[i-1] > a[i]){
@@ -108,6 +88,7 @@ public class Oblig1 {
 
 
     ///// Oppgave 1 //////////////////////////////////////
+    //permutasjoner og inversjoner - kompendiet
         public static int maks(int[] a) {
             if (a == null || a.length == 0 ) {
                 throw new NoSuchElementException();
@@ -134,19 +115,16 @@ public class Oblig1 {
                    }
                }
                return antallOmbyttinger;
-               //I likhet med ombyttinger-metoden returnerer maks1 antall
-               //ganger tallene må stokkes omm, eller antall ganger loopen må gå før metoden finner høest verdi
-               //Ufra en test jeg har gjort (testet i main metode i oblig1,kunne jeg se at denne metoden returnerete 5,
-               //mens ombyttinger metoden returnerte 2. DVS at maks metoden er mer effektiv enn maks1 metoden.
-               //Dette kommer da også helt ann på hvor høyeste verdi er satt i input-arrayet
+
         }
-                                //permutasjoner og inversjoner - kompendiet
+
+
         public static int ombyttinger(int[] a) {
             if (a == null) {
                 throw new NoSuchElementException();
             }
 
-            int antallOmbyttinger = 0;  //initialiserer antallOmbytter som skal telles opp
+            int antallOmbyttinger = 0;  //Hjelpeverdi
 
             for (int i = 1; i < a.length; i++) { //looper gjennom arrayet
                 if (a[i - 1] > a[i]) {  //Sjekker om tallet til venstre er større enn tallet til høyre i arrayet
@@ -180,7 +158,7 @@ public class Oblig1 {
                 }
             }
 
-            return antallUlike;
+            return antallUlike; //Returnerer antall ulike verdier i et sortert array
         }
 
 
@@ -189,7 +167,7 @@ public class Oblig1 {
         public static int antallUlikeUsortert(int[] a) {
 
         // hjelpevariabel for å telle antall variabler
-            int count = 0;
+            int count;
 
             // Initialiserer en arraylist for å legge elementet inn der, for å lettere skille de ut
             ArrayList<Integer> diffNum = new ArrayList<>();
@@ -210,27 +188,6 @@ public class Oblig1 {
             return count; // returnerer her hvor mange av elementene fra a som er lagt inn i diffNum
 
         }
-
-           /* if (a.length <= 1){
-                return 0;
-            }
-
-                for (int i = 0; i < a.length; i++) {
-                    for (int j = 0; j < a.length; j++) {
-                        if (a[i] != a[j]) {
-                            count++;
-                            break;
-                        }
-
-                    }
-
-                }*/
-
-
-  //returnerer antall ulike
-
-
-
 
         ///// Oppgave 4 //////////////////////////////////////
         public static void delsortering(int[] a) {
@@ -262,16 +219,6 @@ public class Oblig1 {
 
     ///// Oppgave 5 //////////////////////////////////////
         public static void rotasjon(char[] a) {
-            /*int index = 0; //initialiserer indeksen
-            int arr_length = a.length-1;
-
-            for (int i = 0; i < arr_length; i++){ //Looper igjennom arrayet og endrer på posisjonen til siste verdi
-               //Oppdaterer verdien c
-                char c = a[arr_length];
-                a[arr_length] = a[index];
-                a[index] = c;
-                index++;
-            }*/
 
             int arr_length = a.length;
 
@@ -309,11 +256,6 @@ public class Oblig1 {
                 }
                 a[d+k] = value;  //legger tilbake verdiene
             }
-            /*for (int i = 0; i < k; i++){
-                rotasjon(a);
-            }*/
-
-
         }
 
 
