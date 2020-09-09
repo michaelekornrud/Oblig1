@@ -297,26 +297,60 @@ public class Oblig1 {
 
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
+            //System.out.println("Arrayliste  : " + Arrays.toString(a));
 
             ////// Versjon 1 //////////////////////////////////
-            if (a.length < 0) {
+            /*if (a.length < 0) {
                 throw new UnsupportedOperationException();
             }
-
             int [] index = new int[a.length]; //Oppretter et array for lagring av indexer
             int [] b = a.clone(); //Lager en klone av a som vi kan sortere.
 
+
             for (int i = 0; i < a.length; ++i) { //
                 for (int j = 1; j < a.length; j++) {
-                    if (b[j - 1] >= b[j]) { // Dersom b0 er mindre eller lik b1
-                        bytt(b, j - 1, j); //Bruker tidligere laget kode for å bytte om på verdiene dersom de er like.
-                        index[j] = j; //Lagrer index i index arrayet.
-                    } else {
-                        index[i] = i; //Dersom b1 > b0 skal ingen ting skje, og jeg lagrer indexene.
-                    }
+                        if (b[j - 1] >= b[j]) { // Dersom b0 er mindre eller lik b1
+                            bytt(b, j-1, j); //Bruker tidligere laget kode for å bytte om på verdiene dersom de er like.
+                            index[j] = j; //Lagrer index i index arrayet.
+                        }
+                        else {
+                            index[i] = i; //Dersom b1 > b0 skal ingen ting skje, og jeg lagrer indexene.
+                        }
                 }
             }
-            return index;
+            //System.out.println("Sortert liste: " + Arrays.toString(b));
+            //System.out.println("Indexliste : " + Arrays.toString(index));
+
+            return index;*/
+
+            ////// Versjon 2 /////////////////////////////////
+            // fyll inn kode for å deklarere arrayene b og c
+
+            int [] b = a.clone();
+            boolean [] c = new boolean[a.length];
+            int verdi;
+
+            for (int i = 0; i < a.length; i++) {
+                int antallElementerMindre = 0;
+                verdi = a[i];
+
+                for(int j = 0; j < a.length; j++) {
+                    if(a[j] < verdi) {
+                        antallElementerMindre ++;
+                        b[j] = j;
+                        c[j] = true;
+                    }
+                }
+
+            // fyll inn kode for å sjekke om indeksen er opptatt/ plusse på indeksen her
+                if (verdi >= b.length){
+                    
+
+                }
+
+
+            }
+            return b;
 
 
     }
@@ -415,7 +449,7 @@ public class Oblig1 {
 
         public static boolean inneholdt(String a, String b) {
         //////Versjon 1 ///////////////////////////////
-            int [] test = {};
+            /*int [] test = {};
             //if (!a.equals(test) || !b.equals(test)) {
                 if(!a.contains(b)) { // || !a.equals(test) || !b.equals(test)
                     throw new UnsupportedOperationException();
@@ -444,15 +478,17 @@ public class Oblig1 {
             System.out.println("Compare : " + Arrays.toString(compare));
 
             if (Arrays.asList(compare).containsAll(Arrays.asList(values))){ //|| Arrays.equals(compare, test) || Arrays.equals(values,test)
+                System.out.println("True!");
                 return true;
 
             }
             else {
+                System.out.println("False!");
                 return false;
-            }
+            }*/
 
         /////Versjon 2 ///////////////////////////////
-           /* ArrayList<Character> charsINa = new ArrayList<>();
+            ArrayList<Character> charsINa = new ArrayList<>();
             ArrayList<Character> charsINb = new ArrayList<>();
 
             for (int i = 0; i < a.length(); ++i){
@@ -480,9 +516,11 @@ public class Oblig1 {
             }
             else {
                 return false;
-            }*/
-
+            }
         }
+
+
+
 }  // Oblig1
 
 
