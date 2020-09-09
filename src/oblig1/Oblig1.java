@@ -1,7 +1,5 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Oblig1 {
@@ -18,7 +16,6 @@ public class Oblig1 {
             a[i] = a[j];
             a[j] = temp;
         }
-
 
         //hentet fra https://www.cs.hioa.no/~ulfu/appolonius/kap1/3/kap13.html#kode.1.3.9.a
         public static void fraTilKontroll(int tablengde, int fra, int til){
@@ -90,6 +87,7 @@ public class Oblig1 {
     ///// Oppgave 1 //////////////////////////////////////
     //permutasjoner og inversjoner - kompendiet
         public static int maks(int[] a) {
+
             if (a == null || a.length == 0 ) {
                 throw new NoSuchElementException();
             }
@@ -105,21 +103,8 @@ public class Oblig1 {
             return a[a.length - 1]; //Returnerer størtste tall/tall som er helt til høyre i arrayet
         }
 
-        public static int maks1(int [] a){ //Annen metode for å finne største verdi i array.
-        int currentMax = a[0];
-        int antallOmbyttinger = 0;
-               for (int i = 0; i <a.length; i++){
-                   if (a[i] > currentMax){
-                       currentMax = a[i];
-                       antallOmbyttinger++;
-                   }
-               }
-               return antallOmbyttinger;
 
-        }
-
-
-        public static int ombyttinger(int[] a) {
+    public static int ombyttinger(int[] a) {
             if (a == null) {
                 throw new NoSuchElementException();
             }
@@ -174,9 +159,9 @@ public class Oblig1 {
 
             // Går gjennom heltallstabellen og sjekker om elementet ligger i arraylisten diffNum, hvis ikke,
             // legger vi den til
-            for(int i = 0; i < a.length; i++) {
-                if(!diffNum.contains(a[i])) {
-                    diffNum.add(a[i]);
+            for (int j : a) {
+                if (!diffNum.contains(j)) {
+                    diffNum.add(j);
                 }
             }
             if(diffNum.size() == 1) {
@@ -205,11 +190,7 @@ public class Oblig1 {
                 else if ((a[left] %2 )==0){ //Sjekker om tallene på venstre er partall/oddetall
                     right--;
                 }
-                else if (!((a[right] %2) ==2)){  //Sjekker om tallene på høyre er partall/oddetall
-                    left++;
-                }
-                else if (!((a[left] %2 )==0)&&((a[right]%2)==0)){
-                    right++;
+                else {  //Sjekker om tallene på høyre er partall/oddetall
                     left++;
                 }
             }
@@ -227,9 +208,7 @@ public class Oblig1 {
             }
 
             char last = a[arr_length-1];
-            for (int i = arr_length-2; i >=0; i--){
-                a[i+1] = a[i];
-            }
+            System.arraycopy(a, 0, a, 1, arr_length - 2 + 1);
             a[0] = last;
         }
 
@@ -290,7 +269,7 @@ public class Oblig1 {
 
 
             //initialiserer hjelpevariabler
-           String inputStringsCombined = "";
+           StringBuilder inputStringsCombined = new StringBuilder();
            int index = 0;
            int array_length = s.length;
 
@@ -306,13 +285,13 @@ public class Oblig1 {
            for (int i = 0; i < index; i++){
                for (int j = 0; j < array_length; j++){
                    if (a[j] < s[j].length()){
-                       inputStringsCombined += s[j].toCharArray()[a[j]];
+                       inputStringsCombined.append(s[j].toCharArray()[a[j]]);
                        a[j] ++;
                    }
                }
            }
            //Returnerer den nye stringen som er kombinert med først til n-te bokstav i hver inputstirng
-           return inputStringsCombined;
+           return inputStringsCombined.toString();
         }
 
 
@@ -349,7 +328,7 @@ public class Oblig1 {
 
             int [] b = a.clone();
             boolean [] c = new boolean[a.length];
-            int verdi = 0;
+            int verdi;
 
             for (int i = 0; i < a.length; i++) {
                 int antallElementerMindre = 0;
@@ -392,7 +371,7 @@ public class Oblig1 {
             }
 
            if (array_length <= 3){ //input-arrayet må ha en lengde på minimum 3
-               //Her skal programmet finne indekxen til det tresj minste tallet i input-arrayet
+               //Her skal programmet finne indekxen til det tredj minste tallet i input-arrayet
                int [] indexToNumber1 = new int[3];
                int [] temporaryNumber1 = new int[array_length];
 
