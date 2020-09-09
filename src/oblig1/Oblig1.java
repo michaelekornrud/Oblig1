@@ -387,17 +387,15 @@ public class Oblig1 {
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            char empty = 0;
             if (!Character.isAlphabetic(bokstav)) {
                 throw new UnsupportedOperationException();
             }
 
             int [] a = new int[256];
-            int position = bokstav ;
             int value = 0;
             for (int i = 0; i < a.length; ++i){
-                a[i] = position;
-                value = position;
+                a[i] = bokstav;
+                value = bokstav;
 
             }
 
@@ -406,8 +404,6 @@ public class Oblig1 {
 
         public static boolean inneholdt(String a, String b) {
         //////Versjon 1 ///////////////////////////////
-            int [] test = {};
-
                 if(!a.contains(b)) {
                     throw new UnsupportedOperationException();
                 }
