@@ -1,9 +1,12 @@
 package oblig1;
 import java.lang.UnsupportedOperationException;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class Oblig1 {
+
+    // Johannes Eerdahl Andresen, s341876, s341876@oslomet.no
+    //Aina Turum Wangsmo, s341826, s341826@oslomet.no
+    //Ole-Michael Ekornrud, s341866, s341866@oslomet.no
 
 ////// Løsningsforslag Oblig 1 ////////////////////////
 
@@ -104,6 +107,12 @@ public class Oblig1 {
             return a[a.length - 1]; //Returnerer størtste tall/tall som er helt til høyre i arrayet
         }
 
+       /* 1) Når blir det flest ombyttinger?
+    - Det blir flest ombyttinger når den største verdien er på indeks '0' (helt til venstre i arrayet)
+          2)Når blir det færrest ombyttinger?
+    - Det blir færrest ombyttinger når tallene allerede står i sortert stigende rekkefølge.
+          3) Hvor mange blir det i gjennomsnitt?
+    - Det blir ca antall tall / 2 (n/2) ombyttinger i gjennomsnitt */
 
     public static int ombyttinger(int[] a) {
             if (a == null) {
@@ -299,18 +308,26 @@ public class Oblig1 {
         ///// Oppgave 8 //////////////////////////////////////
         public static int[] indekssortering(int[] a) {
 
-            int[] b = IntStream.range(0, a.length).toArray();
+            if (a.length < 0) {
+                throw new UnsupportedOperationException();
+            }
+            int [] index = new int[a.length]; //Oppretter et array for lagring av indexer
+            int [] b = a.clone(); //Lager en klone av a som vi kan sortere.
 
-            for (int i = a.length; i > 1; --i) {
-                for (int j = 1; j < i; ++j) {
-                    if (a[b[j - 1]] > a[b[j]]) bytt(b, j - 1, j);
+
+            for (int i = 0; i < a.length; ++i) { //
+                for (int j = 1; j < a.length; j++) {
+                        if (b[j - 1] >= b[j]) { // Dersom b0 er mindre eller lik b1
+                            bytt(b, j-1, j); //Bruker tidligere laget kode for å bytte om på verdiene dersom de er like.
+                            index[j] = j; //Lagrer index i index arrayet.
+                        }
+                        else {
+                            index[i] = i; //Dersom b1 > b0 skal ingen ting skje, og jeg lagrer indexene.
+                        }
                 }
             }
-            return b;
-        }
-
-
-
+            return index;
+    }
 
         ///// Oppgave 9 //////////////////////////////////////
         public static int[] tredjeMin(int[] a) {
@@ -380,37 +397,83 @@ public class Oblig1 {
 
         ///// Oppgave 10 //////////////////////////////////////
         public static int bokstavNr(char bokstav) {
-            throw new UnsupportedOperationException();
+            if (!Character.isAlphabetic(bokstav)) {
+                throw new UnsupportedOperationException();
+            }
+
+            int [] a = new int[256];
+            int value = 0;
+            for (int i = 0; i < a.length; ++i){
+                a[i] = bokstav;
+                value = bokstav;
+
+            }
+
+            return value;
         }
 
         public static boolean inneholdt(String a, String b) {
-            int [] bokstavA = new int[256];
-            int [] bokstavB = new int[256];
+        //////Versjon 1 ///////////////////////////////
+                if(!a.contains(b)) {
+                    throw new UnsupportedOperationException();
+                }
 
+            int [] values = new int[a.length()];
+            int [] compare  = new int[b.length()];
 
-            //Gjør om heltallstabellene til char
-            char [] A = a.toCharArray();
-            char [] B = b.toCharArray();
-
-
-            //Øker verdien for hver loop
-            for (char c : A) {
-                bokstavA[c]++;
-            }
-
-            for (char c : B) {
-                bokstavB[c]++;
-            }
-
-
-            //Sjekker om de inneholder samme
-            for (int i = 0; i < 256; ++i) {
-                if(bokstavB[i] < bokstavA[i]) {
-                    return false;
+            for (int i = 0; i < a.length(); ++i) {
+                for(int j = 0; j <b.length(); ++j) {
+                    values[i] = bokstavNr(a.charAt(i));
+                    compare[j] = bokstavNr(b.charAt(j));
+                    if (i == a.length() - 1 && j == b.length() - 1){
+                        break;
+                    }
+                    if (values[i] == compare[j]){
+                        return true;
+                    }
                 }
             }
-            return true;
+            if (Arrays.asList(compare).containsAll(Arrays.asList(values))){ //|| Arrays.equals(compare, test) || Arrays.equals(values,test)
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        /////Versjon 2 ///////////////////////////////
+           /*ArrayList<Character> charsINa = new ArrayList<>();
+            ArrayList<Character> charsINb = new ArrayList<>();
+
+            for (int i = 0; i < a.length(); ++i){
+                charsINa.add(a.charAt(i));
+            }
+
+            for (int i = 0; i < b.length(); ++i){
+                charsINb.add(b.charAt(i));
+            }
+
+            //System.out.println("A: " + charsINa);
+            //System.out.println("B: " + charsINb);
+
+            for (int i = charsINa.size() - 1; i >= 0; i--){
+                for (int j  = charsINb.size() - 1; j >= 0; j--){
+                    if(charsINa.get(i) == charsINb.get(j)){
+                        charsINa.remove(i);
+                        charsINb.remove(i);
+                        break;
+                    }
+                }
+            }
+            if(charsINa.size() == 0 || charsINb.size() == 0){
+                return true;
+            }
+            else {
+                return false;
+            }*/
         }
+
+
+
 }  // Oblig1
 
 
