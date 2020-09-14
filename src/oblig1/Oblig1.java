@@ -107,6 +107,12 @@ public class Oblig1 {
             return a[a.length - 1]; //Returnerer størtste tall/tall som er helt til høyre i arrayet
         }
 
+       /* 1) Når blir det flest ombyttinger?
+    - Det blir flest ombyttinger når den største verdien er på indeks '0' (helt til venstre i arrayet)
+          2)Når blir det færrest ombyttinger?
+    - Det blir færrest ombyttinger når tallene allerede står i sortert stigende rekkefølge.
+          3) Hvor mange blir det i gjennomsnitt?
+    - Det blir ca antall tall / 2 (n/2) ombyttinger i gjennomsnitt */
 
     public static int ombyttinger(int[] a) {
             if (a == null) {
