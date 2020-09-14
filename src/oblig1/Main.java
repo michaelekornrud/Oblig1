@@ -28,11 +28,10 @@ public class Main {
         }*/
 
 
-
         //////// Oppgave 10 //////////////////////////
 
 
-        System.out.println(Oblig1.bokstavNr('A'));
+        /*System.out.println(Oblig1.bokstavNr('A'));
         String a = "AHABAB";
         String b = "ABBA";
 
@@ -54,5 +53,7 @@ public class Main {
     public static int myTernaryTest (int value){
         return (value < 5 ) ? 0 : 98;
         //Her står det at hvis value er mindre enn 5, så skal den returnere 0, hvis ikke skal den returnere 98.
+    }
+}*/
     }
 }
